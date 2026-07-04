@@ -1,5 +1,7 @@
 # 豆包AI视频去水印 — 完整技术分析报告
 
+> **关键词：豆包去水印、get_play_info API、CDN视频水印、H.264编码水印、字节跳动、videoweb.doubao.com、视频水印分析、samantha/media**
+
 > **报告日期**：2026-07-04  
 > **分析视频**：`v0269cg10004d946i5iljhtf2dunr5e0`  
 > **分享链接**：`https://www.doubao.com/video-sharing?source_type=mobile&share_id=49152711347982082&video_id=v0269cg10004d946i5iljhtf2dunr5e0`  

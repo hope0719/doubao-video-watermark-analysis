@@ -1,8 +1,10 @@
 # 豆包视频去水印 — 深度技术分析
 
+> **🎯 搜索关键词：豆包去水印 · doubao watermark remover · 字节跳动视频水印 · 豆包无水印 · get_play_info · 抖音视频水印 · AI视频去水印 · CDN水印 · H.264水印嵌入**
+
 > **⚠️ 重要结论：豆包视频水印无法通过客户端技术去除！**
 >
-> 本项目完整记录了我们对字节跳动豆包（Doubao）AI 视频去水印的全链路技术探索过程。
+> 本项目完整记录了我们对**字节跳动豆包（Doubao）AI 视频去水印**的全链路技术探索过程。
 > 经过系统性测试（17 个 API 端点、15 个开源项目源码分析、CDN 参数穷举操控、登录态/非登录态对比），
 > **最终确认豆包视频水印是在服务器端 H.264 编码时叠加到像素层的，不是 CDN 动态添加，也不是 URL 参数控制。**
 
@@ -20,13 +22,14 @@
 - [为什么所有开源项目都失效了](#为什么所有开源项目都失效了)
 - [图片去水印仍然可工作](#图片去水印仍然可工作)
 - [运行测试脚本](#运行测试脚本)
+- [搜索标签](#搜索标签)
 - [许可协议](#许可协议)
 
 ---
 
 ## 背景
 
-豆包（doubao.com）是字节跳动推出的 AI 对话+内容生成平台，支持 AI 生成视频和图片。
+**豆包去水印**（doubao watermark removal）是当前 AI 内容创作者的常见需求。豆包（doubao.com）是字节跳动推出的 AI 对话+内容生成平台，支持 AI 生成视频和图片。生成的视频默认带有"豆包 AI"水印，许多用户希望找到去除方法。
 
 在微信小程序和浏览器插件中，我们尝试通过调用豆包的公开 API 获取无水印版本，但发现从某个时间点开始，**所有 API 返回的视频都带有水印**。
 
@@ -186,3 +189,20 @@ Etag: 5bd9650c...
 ## 许可协议
 
 MIT License — 本项目仅为技术研究目的，不提供可用的视频去水印方案。
+
+---
+
+## 搜索标签
+
+<!-- GitHub 搜索优化标签（HTML 注释不影响显示，但提升索引质量） -->
+
+**中文标签：** `豆包去水印` `豆包无水印` `字节跳动` `抖音视频水印` `get_play_info` `AI视频去水印` `CDN安全` `H.264水印` `视频水印分析` `豆包API` `虾爬API` `去水印失败` `豆包视频` `doubao.com` `火山引擎`
+
+**English Tags:** `doubao-watermark-remover` `byte-dance-watermark` `video-watermark-analysis` `cdn-security-research` `h264-watermark-embedding` `api-security` `doubao-api` `douyin-watermark` `ai-video-watermark` `watermark-bypass` `get-play-info` `samantha-api`
+
+**相关项目参考：**
+- [Qalxry/doubao-no-watermark](https://github.com/Qalxry/doubao-no-watermark) — ⭐149 豆包无水印油猴脚本（仅图片）
+- [catscarlet/Download-from-Doubao-Video-Sharing-without-Watermark](https://github.com/catscarlet/Download-from-Doubao-Video-Sharing-without-Watermark) — 豆包视频分享页去水印
+- [xiaoka6688/AI-Video-Copilot](https://github.com/xiaoka6688/AI-Video-Copilot) — AI视频去水印扩展
+- [ihmily/doubao-nomark](https://github.com/ihmily/doubao-nomark) — 无印豆包
+- 更多项目详见 [analysis/technical-report.md](analysis/technical-report.md#开源项目对比)

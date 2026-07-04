@@ -1,8 +1,10 @@
 # Doubao Video Watermark Removal — Deep Technical Analysis
 
+> **🎯 Search keywords: doubao watermark remover · ByteDance video watermark · doubao no watermark · get_play_info · video watermark bypass · CDN watermark analysis · H.264 watermark embedding · douyin watermark removal**
+
 > **⚠️ Key Finding: Doubao video watermarks CANNOT be removed via client-side techniques.**
 >
-> This project documents our complete technical investigation into removing watermarks from ByteDance's Doubao (Doubao.com) AI-generated videos.
+> This project documents our complete technical investigation into removing watermarks from ByteDance's **Doubao (Doubao.com)** AI-generated videos.
 > After systematic testing (17 API endpoints, 15 open-source projects analyzed, exhaustive CDN parameter manipulation, logged-in vs. anonymous comparison),
 > **we conclusively found that Doubao video watermarks are embedded at the pixel level during server-side H.264 encoding — not added dynamically by CDN, nor controlled by URL parameters.**
 
@@ -18,13 +20,14 @@
 - [Why All Open-Source Projects Failed](#why-all-open-source-projects-failed)
 - [Image Watermark Removal Still Works](#image-watermark-removal-still-works)
 - [Running the Test Script](#running-the-test-script)
+- [Search Tags](#search-tags)
 - [License](#license)
 
 ---
 
 ## Background
 
-Doubao (doubao.com) is ByteDance's AI-powered platform for conversation and content generation, supporting AI-generated videos and images.
+**Doubao watermark removal** is a common need among AI content creators. Doubao (doubao.com) is ByteDance's AI-powered platform for conversation and content generation, supporting AI-generated videos and images. Generated videos come with a "Doubao AI" watermark by default, and many users seek methods to remove it.
 
 In WeChat mini-programs and browser extensions, we attempted to obtain watermark-free versions through Doubao's public APIs. However, starting from a certain point, **all API responses returned watermarked videos**.
 
@@ -184,3 +187,20 @@ Etag: 5bd9650c...
 ## License
 
 MIT License — This project is for technical research purposes only. It does not provide a working video watermark removal solution.
+
+---
+
+## Search Tags
+
+<!-- GitHub search optimization tags (HTML comments for indexing) -->
+
+**English Tags:** `doubao-watermark-remover` `byte-dance-watermark` `video-watermark-analysis` `cdn-security-research` `h264-watermark-embedding` `api-security` `doubao-api` `douyin-watermark` `ai-video-watermark` `watermark-bypass` `get-play-info` `samantha-api` `bytedance` `tiktok-watermark` `volcengine`
+
+**Chinese Tags:** `豆包去水印` `豆包无水印` `字节跳动` `抖音视频水印` `get_play_info` `AI视频去水印` `CDN安全` `H.264水印` `视频水印分析` `豆包API` `去水印失败`
+
+**Related Projects Reference:**
+- [Qalxry/doubao-no-watermark](https://github.com/Qalxry/doubao-no-watermark) — ⭐149 Doubao watermark-free userscript (images only)
+- [catscarlet/Download-from-Doubao-Video-Sharing-without-Watermark](https://github.com/catscarlet/Download-from-Doubao-Video-Sharing-without-Watermark) — Doubao video sharing page remover
+- [xiaoka6688/AI-Video-Copilot](https://github.com/xiaoka6688/AI-Video-Copilot) — AI video watermark remover extension
+- [ihmily/doubao-nomark](https://github.com/ihmily/doubao-nomark) — Doubao mark-free
+- More projects in [analysis/technical-report.md](analysis/technical-report.md#open-source-project-comparison)
