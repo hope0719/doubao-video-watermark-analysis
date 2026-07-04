@@ -1,246 +1,167 @@
-# 豆包视频去水印 — 深度技术分析
+# 豆包视频去水印探索记录
 
-[![GitHub stars](https://img.shields.io/github/stars/hope0719/doubao-video-watermark-analysis?style=social)](https://github.com/hope0719/doubao-video-watermark-analysis/stargazers)
+> **探索时间**：2026年7月上旬（约4天密集测试）
+> **测试模型**：GLM 5.2 · Claude 4.5 · Codex / GPT 5.5（均未成功）
+> **状态**：❌ 仍在失败中，持续探索
 
-If this research helps you, please consider giving it a ⭐ star!  
-如果本项目对你有帮助，欢迎点个 ⭐ Star 支持一下！
-
-> **🎯 搜索关键词：豆包去水印 · doubao watermark remover · 字节跳动视频水印 · 豆包无水印 · get_play_info · 抖音视频水印 · AI视频去水印 · CDN水印 · H.264水印嵌入**
-
-> **⚠️ 重要结论：豆包视频水印无法通过客户端技术去除！**
->
-> 本项目完整记录了我们对**字节跳动豆包（Doubao）AI 视频去水印**的全链路技术探索过程。
-> 经过系统性测试（17 个 API 端点、15 个开源项目源码分析、CDN 参数穷举操控、登录态/非登录态对比），
-> **最终确认豆包视频水印是在服务器端 H.264 编码时叠加到像素层的，不是 CDN 动态添加，也不是 URL 参数控制。**
+> **🎯 搜索关键词：豆包去水印 · doubao watermark remover · 字节跳动视频水印 · 豆包无水印 · get_play_info · 抖音视频水印 · AI视频去水印 · CDN水印**
 
 [English Version](README_EN.md)
+
+---
+
+## 一句话总结
+
+> **我们尝试了几十条技术方向，迭代了几十个版本（Edge 插件 + 微信小程序 + Python 分析工具），调用过 GLM 5.2、Claude 4.5、Codex/GPT 5.5 等模型辅助分析，但截至目前，**所有公开途径获取的豆包视频文件都带有水印**。研究仍在进行中。**
 
 ---
 
 ## 目录
 
 - [背景](#背景)
-- [核心结论](#核心结论)
-- [探索过程概览](#探索过程概览)
-- [探索细节](#探索细节)
-- [关键证据](#关键证据)
-- [为什么所有开源项目都失效了](#为什么所有开源项目都失效了)
+- [我们做了什么](#我们做了什么)
+- [测试矩阵](#测试矩阵)
+- [探索方向](#探索方向)
+- [为什么说"仍在失败"](#为什么说仍在失败)
 - [图片去水印仍然可工作](#图片去水印仍然可工作)
-- [运行测试脚本](#运行测试脚本)
-- [搜索标签](#搜索标签)
-- [许可协议](#许可协议)
+- [仓库结构](#仓库结构)
+- [许可证](#许可证)
 
 ---
 
 ## 背景
 
-**豆包去水印**（doubao watermark removal）是当前 AI 内容创作者的常见需求。豆包（doubao.com）是字节跳动推出的 AI 对话+内容生成平台，支持 AI 生成视频和图片。生成的视频默认带有"豆包 AI"水印，许多用户希望找到去除方法。
+**豆包去水印**是AI内容创作者的常见需求。豆包（doubao.com）是字节跳动的AI内容生成平台，生成的视频默认带有"豆包 AI"水印。
 
-在微信小程序和浏览器插件中，我们尝试通过调用豆包的公开 API 获取无水印版本，但发现从某个时间点开始，**所有 API 返回的视频都带有水印**。
+我们尝试通过调用豆包的公开 API 获取无水印视频，但**经过大量测试，所有获取到的视频文件都包含水印**。
 
-## 核心结论
-
-```
-AI 生成（无水印原片）
-    → H.264 编码（同时叠加水印至每一帧像素）
-    → TOS 对象存储（只存一份带水印文件）
-    → CDN 分发（所有 URL 参数均为缓存签名，不影响内容）
-    → 客户端下载（文件本身已嵌入水印）
-```
-
-**水印在编码阶段嵌入，CDN 只存一份文件，不存在通过 URL 参数或 API 切换来绕过的方法。**
-
-## 探索过程概览
-
-我们经历了三个阶段，最终才确认根因：
-
-### 阶段 1：代码修复（以为前端逻辑有问题）
-
-| 版本 | 尝试 | 结果 |
-|:----:|------|:----:|
-| v1.0 | Edge 浏览器插件初版：inject.js 拦截 API | 拦截失败 |
-| v1.1-v1.2 | chat 页面多策略 + CDN 域名变换 | chat 不支持 + 403 |
-| v1.3 | 对齐小程序：vid → `get_play_info` API | **依然带水印** |
-| v1.4-v1.6 | 多视频支持 + DOM 关联匹配 | 时序问题 |
-| v1.8-v1.9 | 回归 + poster 匹配 + 周期重试 | **依然带水印** |
-
-> 我们花了几个月迭代了 20+ 版本修复前端匹配问题，但根因根本不在前端。
-
-### 阶段 2：API 探索（以为有隐藏参数）
-
-- 测试了 17 个 API 端点（`get_play_info`、`get_video_share_info`、`watermark_download` 等）
-- 测试了 URL 参数操控（lr、ft、cs、cr、dr、download、btag、feature_id… 共 15+ 个参数）
-- 测试了登录态与非登录态对比
-- **全部返回同一份带水印文件**
-
-### 阶段 3：开源项目调研
-
-从 GitHub 下载并分析了 **15 个相关开源项目**，逐一运行测试：
-
-| 项目 | ⭐ | 方法 | 有效？ |
-|:----|:-:|:----|:----:|
-| catscarlet 视频分享去水印 | — | `get_play_info` + credentials | ❌ |
-| xiaoka6688 AI去水印扩展 | — | 改 `lr=no_watermark` | ❌ |
-| Luncot 豆包下载器加强版 | 5 | 同上 | ❌ |
-| wan-kong 豆包在线工具 | — | `get_video_share_info` + 微信 UA | ❌ |
-| gosick233-cloud 豆包自由版 | — | 改 `lr=no_watermark` | ❌ |
-| huige-opc 水印消失术 | — | `get_play_info` + credentials | ❌ |
-| ihmily 无印豆包 | — | `get_play_info` + credentials | ❌ |
-| Qalxry 豆包无水印油猴 | **⭐149** | **仅图片，无视频** | ✅ 图片 |
-| doubao-no-watermark | — | 同上 | ❌ |
-| 其他 6 个项目 | — | 各种方法 | ❌ |
-
-**所有视频去水印项目全部失效。** 目前还在工作的是纯图片去水印项目。
-
-## 探索细节
-
-详细分析文档请见：
-
-### 分析报告
-
-- **[analysis/technical-report.md](analysis/technical-report.md)** — 完整技术分析报告（17 个 API 端点测试、CDN 签名机制、15 个开源项目源码对比）
-- **[analysis/doubao-video-watermark-analysis.md](analysis/doubao-video-watermark-analysis.md)** — 初始技术分析报告（包含三种实现方案：UserScript、Python 爬虫、微信小程序）
-- **[analysis/final-report.md](analysis/final-report.md)** — 最终完整报告（3轮深度验证，100%确认客户端无法获取无水印视频）
-- **[analysis/troubleshooting-log.md](analysis/troubleshooting-log.md)** — 排查全记录（所有测试数据、URL 参数操控矩阵、版本历史回溯）
-- **[analysis/find-miniprogram-api.md](analysis/find-miniprogram-api.md)** — 小程序 API 抓包指南（指导如何通过 Charles/Stream 找到获取 `lr=unwatermarked` URL 的真实 API）
-
-## 关键证据
-
-### 证据 1：`original_media_info` 已失效
-
-历史上，`POST /samantha/media/get_play_info` 的响应中 `original_media_info.main_url` 返回的是**不带水印**的 `videoweb.doubao.com` URL。现在它与 `media_info[0].main_url` **完全相同**：
-
-```json
-{
-  "media_info": [{
-    "main_url": "https://v26-videoweb.doubao.com/.../?lr=video_gen_watermark_dyn"
-  }],
-  "original_media_info": {
-    "main_url": "https://v26-videoweb.doubao.com/.../?lr=video_gen_watermark_dyn"  // 完全相同
-  }
-}
-```
-
-### 证据 2：所有 URL 参数不影响文件内容
-
-测试视频 `v0269cg10004d946i5iljhtf2dunr5e0` 的 CDN URL 参数操控结果：
-
-| 测试 | 修改方式 | etag | content-length | 水印 |
-|:----|:-------:|:---:|:-------------:|:----:|
-| 原始 URL | 不变 | `5bd9650c...` | 843,802 | ✅ |
-| 去掉 `lr` 参数 | 删除 | `5bd9650c...` | 843,802 | ✅ |
-| `lr=none` | 替换 | `5bd9650c...` | 843,802 | ✅ |
-| 去掉 `ft` | 删除 | `5bd9650c...` | 843,802 | ✅ |
-| `ft=AAAA` | 随机值 | `5bd9650c...` | 843,802 | ✅ |
-| 去掉 `download` | 删除 | `5bd9650c...` | 843,802 | ✅ |
-| 改 `cr=7&dr=3&cs=4` | 替换 | `5bd9650c...` | 843,802 | ✅ |
-
-**证明：CDN 只存一个文件，所有参数都是缓存签名，不影响内容。**
-
-### 证据 3：登录态不影响无水印
-
-使用 Playwright 在已登录的浏览器上下文中：
-- `credentials: 'include'` 调 API → URL 与未登录态相同
-- 点击创作者下载按钮 → 同一 URL
-- JS bundle 搜索 `watermark` → 客户端无控制逻辑
-
-### 证据 4：字节一定有无水印原片
-
-从逻辑上推断：
-
-1. **AI 模型生成的是原始帧**，水印是后处理叠加的
-2. **创作者需要无水印版本**才能发到抖音/小红书/B站
-3. **商业闭环要求**平台提供无水印导出能力
-
-无水印原片可能在内部创作者服务链路中（需 OAuth + 创作者权限），**不在公开 API** 上。
-
-## 为什么所有开源项目都失效了
-
-核心原因：**字节跳动（豆包+抖音）的视频水印机制是工业级的**。
-
-1. 不是前端叠加 → 不能用 DOM 操作绕过
-2. 不是边缘添加 → CDN 参数操控无效
-3. 不是 URL 分支 → 不同域名返回同一份文件
-4. **是编码时嵌入 → 像素级，与文件绑定**
-
-之前（v7-v8 时期）能工作，推测是因为：
-- CDN 旧节点或旧编码器没有正确叠加水印
-- 字节后来修复了这个问题
-- **之前的"成功"是 Bug 不是 Feature**
-
-## 图片去水印仍然可工作
-
-**本项目的分析结论仅限视频。图片去水印完全可工作！**
-
-- 图集页面返回 `rc_gen_image/{32位md5}` 路径是**无水印原图**
-- GitHub 上 ⭐149 的 [Qalxry/豆包无水印油猴](https://github.com/Qalxry/doubao-no-watermark) 就是纯图片方案，仍在工作
-- Canvas 合并去水印也是可行的图片方案
-
-## 运行测试脚本
-
-### 核心验证
-
-```bash
-# 安装依赖
-pip install httpx
-
-# 运行测试（验证 API 返回带水印视频）
-cd proof/
-python3 test_api.py <video_id>
-```
-
-示例输出：
-```
-API:  /samantha/media/get_play_info
-URL:  https://v26-videoweb.doubao.com/.../?lr=video_gen_watermark_dyn
-Size: 843,802 bytes
-Etag: 5bd9650c...
-⚠️  Watermark: DETECTED (lr=video_gen_watermark_dyn)
-```
-
-### 分析工具集（`tools/`）
-
-我们提供了 **19 个 Python 分析脚本**，涵盖从 API 分析、参数测试到水印验证的全流程：
-
-| 脚本 | 用途 | 关键点 |
-|:-----|:-----|:-------|
-| `doubao_video_downloader.py` | 完整命令行下载器 | 支持 Cookie 认证、进度显示 |
-| `test_watermark_detection.py` | 水印检测分析 | 对比 ETag、MD5、OpenCV 帧分析 |
-| `advanced_watermark_bypass.py` | 高级参数穷举 | 4 组测试（14 种 lr 参数 + 11 种请求体组合） |
-| `reverse_miniprogram_method.py` | 小程序逆向测试 | 5 组测试（UA、分享链接解析、特殊 Token） |
-| `check_mobile_api.py` | 移动端 API 模拟 | 模拟 iOS/Android/iPad/微信 4 种平台 |
-| `analyze_api.py` | API 响应分析 | 递归搜索 JSON 中所有 URL 字段 |
-| `deep_analysis_browser.py` | 浏览器级深度分析 | 使用 Selenium 捕获网络请求 |
-| ... 查看更多 | 详请参见 [tools/README.md](tools/README.md) |
-
-使用方式：
-```bash
-cd tools/
-pip install -r requirements.txt
-python3 doubao_video_downloader.py "https://www.doubao.com/video-sharing?video_id=xxx"
-```
-
-### Chrome 扩展拦截器
-
-`chrome-extension/` 目录包含一个完整的 Chrome 扩展，用于深度捕获豆包页面的所有网络请求，包括 fetch/XHR、WebSocket、Service Worker 缓存等。详见 [chrome-extension/README.md](chrome-extension/README.md)。
-
-## 许可协议
-
-MIT License — 本项目仅为技术研究目的，不提供可用的视频去水印方案。
+这不是一个"完成的项目"，而是一份**探索过程的记录**。
 
 ---
 
-## 搜索标签
+## 我们做了什么
 
-<!-- GitHub 搜索优化标签（HTML 注释不影响显示，但提升索引质量） -->
+### 前端插件（迭代了 20+ 版本）
 
-**中文标签：** `豆包去水印` `豆包无水印` `字节跳动` `抖音视频水印` `get_play_info` `AI视频去水印` `CDN安全` `H.264水印` `视频水印分析` `豆包API` `虾爬API` `去水印失败` `豆包视频` `doubao.com` `火山引擎`
+| 版本 | 尝试 | 结果 |
+|:----:|------|:----:|
+| v1.0 | Edge 插件：inject.js 拦截 API + 覆盖按钮下载 | 拦截成功，但视频带水印 |
+| v1.1-v1.6 | chat 页面多策略 + 多视频支持 + DOM 关联 | 前端功能修复，但视频仍有水印 |
+| v1.8-v1.9 | vid→video 元素关联修复 + 周期重试 | 下载成功，**视频仍带水印** |
+| v20 | 最终版本，整合所有修复 | **仍带水印** |
 
-**English Tags:** `doubao-watermark-remover` `byte-dance-watermark` `video-watermark-analysis` `cdn-security-research` `h264-watermark-embedding` `api-security` `doubao-api` `douyin-watermark` `ai-video-watermark` `watermark-bypass` `get-play-info` `samantha-api`
+### API 分析
 
-**相关项目参考：**
-- [Qalxry/doubao-no-watermark](https://github.com/Qalxry/doubao-no-watermark) — ⭐149 豆包无水印油猴脚本（仅图片）
-- [catscarlet/Download-from-Doubao-Video-Sharing-without-Watermark](https://github.com/catscarlet/Download-from-Doubao-Video-Sharing-without-Watermark) — 豆包视频分享页去水印
-- [xiaoka6688/AI-Video-Copilot](https://github.com/xiaoka6688/AI-Video-Copilot) — AI视频去水印扩展
-- [ihmily/doubao-nomark](https://github.com/ihmily/doubao-nomark) — 无印豆包
-- 更多项目详见 [analysis/technical-report.md](analysis/technical-report.md#开源项目对比)
+- **核心 API**：`POST /samantha/media/get_play_info`（返回 `original_media_info.main_url`）
+- 历史上 `original_media_info` 曾返回无水印 URL，现在与 `media_info[0].main_url` **完全相同**
+- 测试了不同域名（v9-videoweb / v26-videoweb / v26-show.douyinvod）
+- 测试了不同 `lr` 参数（14 种变体：no_watermark, origin, raw, clean 等）
+- 测试了登录态与未登录态对比
+- **所有结果文件 MD5 一致，均带水印**
+
+### AI 模型辅助分析
+
+我们使用了多个 AI 模型辅助分析方向：
+
+| 模型 | 用途 | 结论 |
+|:----|:----|:----|
+| **GLM 5.2** | 分析抓包数据、建议 API 参数变体 | 未找到有效途径 |
+| **Claude 4.5** | 代码审查、逆向分析方向建议 | 未找到有效途径 |
+| **Codex / GPT 5.5** | 架构分析、设计方案 | 未找到有效途径 |
+
+所有模型均未能提供可用的去水印方案。
+
+### 开源项目调研
+
+调研并运行测试了多个相关开源项目：
+
+| 项目 | 方法 | 对视频有效？ |
+|:----|:----|:----------:|
+| ihmily/doubao-nomark | `get_play_info` + 微信 UA | ❌（和我们结果一致） |
+| catscarlet 视频去水印 | `get_play_info` + credentials | ❌ |
+| xiaoka6688 AI去水印 | 改 `lr` 参数 | ❌ |
+| wan-kong 在线工具 | `get_video_share_info` + 微信 UA | ❌ |
+| gosick233-cloud 豆包自由版 | 改 `lr` 参数 | ❌ |
+| huige-opc 水印消失术 | `get_play_info` | ❌ |
+| Qalxry 豆包无水印油猴 | **仅图片，无视频** | ✅ 图片 |
+
+**所有视频去水印开源项目均已失效。**
+
+### 第三方小程序「云龙清图助手」
+
+- 用户验证：保存到相册的视频无水印
+- 抓包：只抓到 `v9-videoweb.doubao.com` 的视频下载请求，**未找到对应的 API 调用**
+- API 可能在 protobuf / WebSocket / 加密通道中，**暂未破解**
+
+---
+
+## 测试矩阵
+
+| 测试来源 | 域名 | lr 参数 | 文件大小 | 水印 |
+|---------|------|---------|---------|:----:|
+| 小程序抓包 | v9-videoweb | unwatermarked | ~598KB | ❌ 有 |
+| H5 浏览器调 API | v9-videoweb | video_gen_watermark_dyn | ~819KB | ❌ 有 |
+| H5 播放器 video source | v26-videoweb | video_gen_watermark_dyn | ~653KB | ❌ 有 |
+| 微信 UA + 完整参数调 API | v26-videoweb | video_gen_watermark_dyn | ~819KB | ❌ 有 |
+| doubao-nomark 开源项目 | v9/v26 | video_gen_watermark_dyn | ~819KB | ❌ 有 |
+| GLM/Claude/Codex 建议的方案 | - | - | - | ❌ 均有水印 |
+
+**结论：所有文件大小、域名、编码不同，但都有可见水印。**
+
+---
+
+## 探索方向
+
+| 方向 | 现状 | 说明 |
+|:----|:----|:----|
+| 更换 lr 参数 | ❌ 无效 | CDN 缓存 key 不含查询参数，内容不变 |
+| 更换 CDN 域名 | ❌ 无效 | v9/v26/show 等域名均带水印 |
+| 登录态下载 | ❌ 无效 | 登录后调用同一 API，返回同一文件 |
+| 创作者身份验证 | ❌ 未找到 | 未找到创作者专属的 API 端点 |
+| protobuf API | 🔍 待探索 | 小程序可能的 API 协议，未破解 |
+| WebSocket 通道 | 🔍 待探索 | 小程序可能通过 WS 推送 URL |
+| 画面裁剪后处理 | ⏳ 可行但非真正去水印 | 裁剪边缘水印区域，但有画质损失 |
+| AI 后处理去水印 | ⏳ 理论可行 | 需要模型推理，画质有损，计算量大 |
+
+---
+
+## 为什么说"仍在失败"
+
+1. **底层原因**：豆包视频水印是在服务端编码时**像素级叠加**的，不是 CSS 叠加、不是 CDN 参数控制、不是播放器后处理
+2. **所有已知路径走不通**：API 参数、CDN 参数、开源项目、AI 模型分析，均未找到有效方法
+3. **唯一有望的方向未破解**：第三方小程序的 API 调用链路未抓到，无法复现
+
+---
+
+## 图片去水印仍然可工作
+
+**本仓库的结论仅限视频。图片去水印可正常工作！**
+
+- 图集页面返回 `rc_gen_image/{32位md5}` 路径是**无水印原图**
+- [Qalxry/doubao-no-watermark](https://github.com/Qalxry/doubao-no-watermark)（⭐149）是纯图片方案，仍在工作
+- Canvas 合并去水印也是可行的图片方案
+
+---
+
+## 仓库结构
+
+```
+├── README.md                    # 本文件（中文）
+├── README_EN.md                 # 本文件（英文）
+├── analysis/                    # 分析文档
+│   ├── technical-report.md      # 完整技术分析报告
+│   ├── troubleshooting-log.md   # 排查全记录
+│   ├── FIND_MINIPROGRAM_API.md  # 小程序 API 抓包指南
+│   └── 方向分析报告.md            # 最新方向分析
+├── tools/                       # Python 分析工具集（19 个脚本）
+├── chrome-extension/            # Chrome 扩展拦截器
+└── proof/                       # 核心验证脚本
+```
+
+详情请看各目录下的 README 文件。
+
+---
+
+## 许可证
+
+MIT License — 本项目为技术研究记录，不提供可用的视频去水印方案。

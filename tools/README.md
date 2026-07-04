@@ -1,8 +1,10 @@
-# 豆包视频去水印下载工具 - 使用指南
+# 豆包视频分析工具集 - 使用指南
 
 ## 📖 简介
 
-这是一个用于从豆包（Doubao）视频分享页面下载无水印视频的命令行工具。基于豆包API的技术分析，实现了自动化的视频获取和下载功能。
+这是一个用于豆包（Doubao）视频分享页面 API 分析和视频下载的 Python 工具集。
+
+**⚠️ 重要提示**：这些工具下载的视频**仍带有水印**。本仓库的研究尚未找到成功去水印的方法。工具仅供技术分析和研究使用。
 
 ## ⚠️ 重要声明
 
@@ -97,6 +99,8 @@ python doubao_video_downloader.py "分享链接" -c "sessionid=abc123; uid=45678
 python doubao_video_downloader.py "分享链接" -v
 ```
 
+**注意**：下载的视频文件目前均带有水印。如需无水印版本，请关注本仓库的持续研究进展。
+
 #### 示例 5: 组合使用多个参数
 
 ```bash
@@ -147,7 +151,7 @@ sessionid=xxx; uid=xxx; oauth_token=xxx
    ↓
 3. 调用豆包API获取视频信息
    ↓
-4. 获取无水印视频URL
+4. 获取视频CDN URL（目前均带水印）
    ↓
 5. 下载视频到本地
    ↓
@@ -256,7 +260,7 @@ POST https://www.doubao.com/samantha/media/get_play_info
 {
   "data": {
     "original_media_info": {
-      "main_url": "https://...",  // 无水印视频URL
+      "main_url": "https://.../?lr=video_gen_watermark_dyn",  // 注意：目前带水印
       "width": 1920,
       "height": 1080,
       "size": 16058032,
@@ -266,7 +270,9 @@ POST https://www.doubao.com/samantha/media/get_play_info
 }
 ```
 
-更多技术细节请参考: [doubao-video-watermark-analysis.md](./doubao-video-watermark-analysis.md)
+**注意**：当前 `original_media_info.main_url` 与 `media_info[0].main_url` 完全相同，均带 `lr=video_gen_watermark_dyn` 参数，下载后均有水印。
+
+更多技术细节请参考: [技术分析报告](../analysis/technical-report.md)
 
 ## 📦 依赖说明
 
@@ -361,12 +367,17 @@ A: 本工具专门针对豆包平台。其他平台需要单独的工具。
 
 ### v1.0.0 (2026-07-04)
 - ✨ 初始版本发布
-- ✅ 支持从分享链接下载无水印视频
+- ✅ 支持从分享链接下载视频（目前均带水印）
 - ✅ 支持自定义输出文件名
 - ✅ 支持Cookie身份验证
 - ✅ 显示下载进度条
 - ✅ 详细的错误提示
 - ✅ 支持调试模式
+
+### ⚠️ 已知限制
+- 下载的视频文件目前均带有"豆包 AI"水印
+- 水印是服务端编码时像素级嵌入的，客户端无法通过参数切换去除
+- 本仓库仍在探索有效的去水印方案
 
 ## 🤝 贡献
 
