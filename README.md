@@ -1,5 +1,10 @@
 # 豆包视频去水印 — 深度技术分析
 
+[![GitHub stars](https://img.shields.io/github/stars/hope0719/doubao-video-watermark-analysis?style=social)](https://github.com/hope0719/doubao-video-watermark-analysis/stargazers)
+
+If this research helps you, please consider giving it a ⭐ star!  
+如果本项目对你有帮助，欢迎点个 ⭐ Star 支持一下！
+
 > **🎯 搜索关键词：豆包去水印 · doubao watermark remover · 字节跳动视频水印 · 豆包无水印 · get_play_info · 抖音视频水印 · AI视频去水印 · CDN水印 · H.264水印嵌入**
 
 > **⚠️ 重要结论：豆包视频水印无法通过客户端技术去除！**
