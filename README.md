@@ -96,8 +96,13 @@ AI 生成（无水印原片）
 
 详细分析文档请见：
 
+### 分析报告
+
 - **[analysis/technical-report.md](analysis/technical-report.md)** — 完整技术分析报告（17 个 API 端点测试、CDN 签名机制、15 个开源项目源码对比）
+- **[analysis/doubao-video-watermark-analysis.md](analysis/doubao-video-watermark-analysis.md)** — 初始技术分析报告（包含三种实现方案：UserScript、Python 爬虫、微信小程序）
+- **[analysis/final-report.md](analysis/final-report.md)** — 最终完整报告（3轮深度验证，100%确认客户端无法获取无水印视频）
 - **[analysis/troubleshooting-log.md](analysis/troubleshooting-log.md)** — 排查全记录（所有测试数据、URL 参数操控矩阵、版本历史回溯）
+- **[analysis/find-miniprogram-api.md](analysis/find-miniprogram-api.md)** — 小程序 API 抓包指南（指导如何通过 Charles/Stream 找到获取 `lr=unwatermarked` URL 的真实 API）
 
 ## 关键证据
 
@@ -173,6 +178,8 @@ AI 生成（无水印原片）
 
 ## 运行测试脚本
 
+### 核心验证
+
 ```bash
 # 安装依赖
 pip install httpx
@@ -190,6 +197,32 @@ Size: 843,802 bytes
 Etag: 5bd9650c...
 ⚠️  Watermark: DETECTED (lr=video_gen_watermark_dyn)
 ```
+
+### 分析工具集（`tools/`）
+
+我们提供了 **19 个 Python 分析脚本**，涵盖从 API 分析、参数测试到水印验证的全流程：
+
+| 脚本 | 用途 | 关键点 |
+|:-----|:-----|:-------|
+| `doubao_video_downloader.py` | 完整命令行下载器 | 支持 Cookie 认证、进度显示 |
+| `test_watermark_detection.py` | 水印检测分析 | 对比 ETag、MD5、OpenCV 帧分析 |
+| `advanced_watermark_bypass.py` | 高级参数穷举 | 4 组测试（14 种 lr 参数 + 11 种请求体组合） |
+| `reverse_miniprogram_method.py` | 小程序逆向测试 | 5 组测试（UA、分享链接解析、特殊 Token） |
+| `check_mobile_api.py` | 移动端 API 模拟 | 模拟 iOS/Android/iPad/微信 4 种平台 |
+| `analyze_api.py` | API 响应分析 | 递归搜索 JSON 中所有 URL 字段 |
+| `deep_analysis_browser.py` | 浏览器级深度分析 | 使用 Selenium 捕获网络请求 |
+| ... 查看更多 | 详请参见 [tools/README.md](tools/README.md) |
+
+使用方式：
+```bash
+cd tools/
+pip install -r requirements.txt
+python3 doubao_video_downloader.py "https://www.doubao.com/video-sharing?video_id=xxx"
+```
+
+### Chrome 扩展拦截器
+
+`chrome-extension/` 目录包含一个完整的 Chrome 扩展，用于深度捕获豆包页面的所有网络请求，包括 fetch/XHR、WebSocket、Service Worker 缓存等。详见 [chrome-extension/README.md](chrome-extension/README.md)。
 
 ## 许可协议
 

@@ -18,3 +18,6 @@ Thumbs.db
 # Temp
 *.mp4
 *.tmp
+
+# Proof test outputs
+proof/__pycache__/

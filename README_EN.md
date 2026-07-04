@@ -89,8 +89,13 @@ Downloaded and analyzed **15 related open-source projects** from GitHub, testing
 
 Full analysis documents:
 
+### Analysis Reports
+
 - **[analysis/technical-report.md](analysis/technical-report.md)** — Complete technical analysis (17 API endpoints, CDN signature mechanism, 15 open-source project comparison)
+- **[analysis/doubao-video-watermark-analysis.md](analysis/doubao-video-watermark-analysis.md)** — Initial analysis report (3 implementation approaches: UserScript, Python crawler, WeChat mini-program)
+- **[analysis/final-report.md](analysis/final-report.md)** — Final comprehensive report (3 rounds of deep validation, 100% confirmed no client-side access to watermark-free video)
 - **[analysis/troubleshooting-log.md](analysis/troubleshooting-log.md)** — Full investigation log (all test data, URL parameter manipulation matrix, version history)
+- **[analysis/find-miniprogram-api.md](analysis/find-miniprogram-api.md)** — Mini-program API capture guide (how to find the real API that returns `lr=unwatermarked` URLs using Charles/Stream)
 
 ## Key Evidence
 
@@ -166,6 +171,8 @@ Previous success (v7-v8 era) was likely due to:
 
 ## Running the Test Script
 
+### Core Validation
+
 ```bash
 # Install dependencies
 pip install httpx
@@ -183,6 +190,32 @@ Size: 843,802 bytes
 Etag: 5bd9650c...
 ⚠️  Watermark: DETECTED (lr=video_gen_watermark_dyn)
 ```
+
+### Analysis Tools (`tools/`)
+
+We provide **19 Python analysis scripts** covering the full workflow from API analysis, parameter testing to watermark verification:
+
+| Script | Purpose | Key Features |
+|:-------|:--------|:-------------|
+| `doubao_video_downloader.py` | Full CLI downloader | Cookie auth, progress display |
+| `test_watermark_detection.py` | Watermark detection | ETag/MD5 comparison, OpenCV frame analysis |
+| `advanced_watermark_bypass.py` | Advanced parameter testing | 4 test groups (14 lr variants + 11 body combos) |
+| `reverse_miniprogram_method.py` | Mini-program reverse engineering | 5 test groups (UA, share link parsing, special tokens) |
+| `check_mobile_api.py` | Mobile API simulation | iOS/Android/iPad/WeChat 4 platform tests |
+| `analyze_api.py` | API response analysis | Recursive JSON URL field search |
+| `deep_analysis_browser.py` | Browser-level deep analysis | Selenium-based network capture |
+| ... More | See [tools/README.md](tools/README.md) |
+
+Usage:
+```bash
+cd tools/
+pip install -r requirements.txt
+python3 doubao_video_downloader.py "https://www.doubao.com/video-sharing?video_id=xxx"
+```
+
+### Chrome Extension Interceptor
+
+The `chrome-extension/` directory contains a complete Chrome extension for deep network request interception on Doubao pages, including fetch/XHR, WebSocket, Service Worker cache, etc. See [chrome-extension/README.md](chrome-extension/README.md).
 
 ## License
 
