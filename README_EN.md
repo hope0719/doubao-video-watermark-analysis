@@ -83,11 +83,10 @@ All models failed to provide a working watermark removal approach.
 
 **All video watermark removal open-source projects have failed.**
 
-### Third-Party Mini-Program "云龙清图助手"
+### Packet Capture Analysis
 
-- User confirmed: saved videos are watermark-free
-- Packet capture: only found `v9-videoweb.doubao.com` video download request, **no corresponding API call found**
-- API may be in protobuf / WebSocket / encrypted channel — **not yet cracked**
+Captured 3 video download requests from mobile (iOS Stream):
+- Only found `v9-videoweb.doubao.com` video download requests, **no corresponding API call found**
 
 ---
 
@@ -95,7 +94,7 @@ All models failed to provide a working watermark removal approach.
 
 | Source | Domain | lr parameter | File size | Watermark |
 |:-------|:-------|:-------------|:----------|:---------:|
-| Mini-program capture | v9-videoweb | unwatermarked | ~598KB | ❌ Yes |
+| Mobile packet capture | v9-videoweb | unwatermarked | ~598KB | ❌ Yes |
 | H5 browser API call | v9-videoweb | video_gen_watermark_dyn | ~819KB | ❌ Yes |
 | H5 player video source | v26-videoweb | video_gen_watermark_dyn | ~653KB | ❌ Yes |
 | WeChat UA + full params API | v26-videoweb | video_gen_watermark_dyn | ~819KB | ❌ Yes |
@@ -114,8 +113,6 @@ All models failed to provide a working watermark removal approach.
 | Change CDN domain | ❌ Failed | v9/v26/show — all watermarked |
 | Logged-in download | ❌ Failed | Same API returns same file |
 | Creator identity auth | ❌ Not found | No creator-specific API endpoint found |
-| Protobuf API | 🔍 To explore | Possible mini-program API protocol |
-| WebSocket channel | 🔍 To explore | Mini-program may push URL via WS |
 | Frame cropping post-processing | ⏳ Feasible | Crop watermark area, but image quality loss |
 | AI post-processing de-watermark | ⏳ Theoretical | Requires model inference, quality loss, high cost |
 
@@ -125,7 +122,6 @@ All models failed to provide a working watermark removal approach.
 
 1. **Root cause**: Doubao video watermarks are **pixel-level embedded during server-side encoding** — not CSS overlay, not CDN parameter controlled, not player post-processing
 2. **All known paths exhausted**: API parameters, CDN parameters, open-source projects, AI model analysis — no effective method found
-3. **Only promising direction not cracked**: The third-party mini-program's API call chain hasn't been captured and cannot be reproduced
 
 ---
 
@@ -147,7 +143,7 @@ All models failed to provide a working watermark removal approach.
 ├── analysis/                    # Analysis documents
 │   ├── technical-report.md      # Full technical analysis
 │   ├── troubleshooting-log.md   # Complete investigation log
-│   ├── FIND_MINIPROGRAM_API.md  # Mini-program API capture guide
+│   ├── FIND_MINIPROGRAM_API.md  # Mobile API capture guide
 │   └── 方向分析报告.md            # Latest direction analysis
 ├── tools/                       # Python analysis tools (19 scripts)
 ├── chrome-extension/            # Chrome extension interceptor

@@ -87,11 +87,10 @@
 
 **所有视频去水印开源项目均已失效。**
 
-### 第三方小程序「云龙清图助手」
+### 抓包数据分析
 
-- 用户验证：保存到相册的视频无水印
-- 抓包：只抓到 `v9-videoweb.doubao.com` 的视频下载请求，**未找到对应的 API 调用**
-- API 可能在 protobuf / WebSocket / 加密通道中，**暂未破解**
+通过 iOS 抓包工具（Stream）对手机端的视频请求进行了 3 次抓包分析：
+- 只抓到 `v9-videoweb.doubao.com` 的视频下载请求，**未找到 API 来源**
 
 ---
 
@@ -99,7 +98,7 @@
 
 | 测试来源 | 域名 | lr 参数 | 文件大小 | 水印 |
 |---------|------|---------|---------|:----:|
-| 小程序抓包 | v9-videoweb | unwatermarked | ~598KB | ❌ 有 |
+| 手机端抓包 | v9-videoweb | unwatermarked | ~598KB | ❌ 有 |
 | H5 浏览器调 API | v9-videoweb | video_gen_watermark_dyn | ~819KB | ❌ 有 |
 | H5 播放器 video source | v26-videoweb | video_gen_watermark_dyn | ~653KB | ❌ 有 |
 | 微信 UA + 完整参数调 API | v26-videoweb | video_gen_watermark_dyn | ~819KB | ❌ 有 |
@@ -118,8 +117,6 @@
 | 更换 CDN 域名 | ❌ 无效 | v9/v26/show 等域名均带水印 |
 | 登录态下载 | ❌ 无效 | 登录后调用同一 API，返回同一文件 |
 | 创作者身份验证 | ❌ 未找到 | 未找到创作者专属的 API 端点 |
-| protobuf API | 🔍 待探索 | 小程序可能的 API 协议，未破解 |
-| WebSocket 通道 | 🔍 待探索 | 小程序可能通过 WS 推送 URL |
 | 画面裁剪后处理 | ⏳ 可行但非真正去水印 | 裁剪边缘水印区域，但有画质损失 |
 | AI 后处理去水印 | ⏳ 理论可行 | 需要模型推理，画质有损，计算量大 |
 
@@ -128,8 +125,7 @@
 ## 为什么说"仍在失败"
 
 1. **底层原因**：豆包视频水印是在服务端编码时**像素级叠加**的，不是 CSS 叠加、不是 CDN 参数控制、不是播放器后处理
-2. **所有已知路径走不通**：API 参数、CDN 参数、开源项目、AI 模型分析，均未找到有效方法
-3. **唯一有望的方向未破解**：第三方小程序的 API 调用链路未抓到，无法复现
+3. **所有已知路径走不通**：API 参数、CDN 参数、开源项目、AI 模型分析，均未找到有效方法
 
 ---
 
@@ -151,7 +147,7 @@
 ├── analysis/                    # 分析文档
 │   ├── technical-report.md      # 完整技术分析报告
 │   ├── troubleshooting-log.md   # 排查全记录
-│   ├── FIND_MINIPROGRAM_API.md  # 小程序 API 抓包指南
+│   ├── FIND_MINIPROGRAM_API.md  # 手机端 API 抓包指南
 │   └── 方向分析报告.md            # 最新方向分析
 ├── tools/                       # Python 分析工具集（19 个脚本）
 ├── chrome-extension/            # Chrome 扩展拦截器
