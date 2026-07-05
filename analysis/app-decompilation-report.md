@@ -1,10 +1,8 @@
-# 便捷下载 APP（com.lcw.easydownload）逆向分析报告
+# 第三方视频下载工具调研报告
 
-> **分析日期**：2026-07-05
-> **工具**：脱壳 + JADX 反编译
-> **包名**：com.lcw.easydownload
-> **应用名**：便捷下载
-> **规模**：75 个混淆包，OkHttp + FileDownloader + FFmpeg
+> **调研日期**：2026-07-05
+> **调研方式**：客户端逆向分析（APK 反编译）
+> **调研对象**：某 Android 视频下载工具
 
 ---
 
@@ -15,13 +13,13 @@
 ```
 客户端（App）                 服务器
 用户复制豆包链接               ↓
-       → POST /api/parse/ →  服务器抓取豆包页面
-      common/parse            解析出无水印视频URL
+       → POST 解析请求  →  服务器抓取豆包页面
+                            解析出无水印视频URL
        ← 返回 video URL  ←    
        → 直接下载视频      →   返回干净文件
 ```
 
-**客户端只是一个"空壳"——没有任何本地的视频解析或去水印逻辑。**
+**结论：客户端本身不包含任何视频解析或去水印逻辑**，所有核心处理均在服务端完成。
 
 ---
 
@@ -29,21 +27,20 @@
 
 ### 基础信息
 
-| 项目 | 值 |
-|------|---|
-| 服务器 | `https://easydownload.flyinglife.cn` |
-| 图片存储 | `http://qiniuyun.flyinglife.cn/`（七牛云） |
-| 备用URL | `http://westsideapp.com/ed/note.php` |
-| HTTP框架 | OkHttp + OkGo，HTTP/1.1 only |
+| 项目 | 说明 |
+|------|------|
+| 服务架构 | 客户端-服务端分离模式 |
+| 通信协议 | 标准 HTTP/1.1 |
+| 认证方式 | 登录态 + 签名参数 |
 
-### 核心 API 端点
+### 核心 API 功能
 
-| 端点 | 方法 | 用途 | 权限 |
-|------|------|------|------|
-| `/api/parse/common/parse` | POST | 通用平台解析 | 需登录 |
-| `/api/parse/pro/parse` | POST | VIP 专业解析 | 付费 VIP |
-| `/api/parse/short2long` | POST | 短链接还原 | 免费 |
-| `/api/login/login` | POST | 登录获取 token | 注册用户 |
+| 功能 | 权限要求 |
+|------|----------|
+| 通用平台解析 | 需登录 |
+| VIP 专业解析 | 付费 VIP |
+| 短链接还原 | 免费 |
+| 登录验证 | 注册用户 |
 
 ---
 
@@ -51,57 +48,46 @@
 
 ### 登录流程
 
-```
-POST /api/login/login
-Body: { "username": "xxx", "password": "md5(md5(rawPassword))", "timestamp": 1234567890 }
-```
+客户端通过账号密码登录，服务端返回认证凭证（loginId + token），本地缓存供后续请求使用。
 
-返回：`LoginEntity { loginId, token, timestamp, extra }` → 本地缓存
+密码传输采用哈希处理（非明文）。
 
 ### API 请求签名
 
-```java
-// C0961b.java 核心签名算法
-String signSource = loginId + timestamp + TOKEN;
-String sign = md5(md5(signSource));  // 双重MD5
-timestamp = 当前Unix时间(秒) + 登录时缓存的服务器时间偏移量
+每个API请求需要携带以下参数：
 
-// URL 格式
-/api/parse/common/parse?loginId=<id>&sign=<双重MD5>&timestamp=<时间戳>
-```
+| 参数 | 说明 |
+|------|------|
+| loginId | 登录标识 |
+| sign | 签名值（基于 loginId + timestamp + token 计算） |
+| timestamp | 时间戳（含服务端时间偏移校准） |
 
-### HTTP 请求头（全局）
+签名算法为**多层哈希**，具体实现细节不做展开。
 
-```
-channel: lzy
-version: <app版本号>
-secret: <md5(包名)>     ← 应用级密钥，用于反盗版检测
-User-Agent: <自定义UA>
-Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
-```
+### HTTP 请求头
+
+客户端会携带自定义请求头，包括：
+- 渠道标识
+- 应用版本号
+- 应用级校验密钥
 
 ### 服务端反盗版检测
 
-如果 `secret` 值不匹配，API 返回：
+如果请求未携带合法的校验密钥，API 拒绝服务并返回版权提示：
 
 ```json
-{"code":403,"message":"高级功能已失效,盗版可耻，请支持正版！","data":""}
+{"code":403,"message":"提示信息","data":""}
 ```
 
 ---
 
 ## 四、豆包的处理方式
 
-### 路由逻辑（C0958j.java）
+### 路由逻辑
 
-```java
-if (str.contains("doubao.")) {
-    C2559e.onEvent(activity, "doubao");    // 埋点
-    return new C0912ad("豆包AI_");           // 交给通用解析器
-}
-```
+客户端通过关键词识别平台类型（如检测到 `doubao.` 域名），然后统一交由通用解析处理器处理。
 
-**豆包与抖音/即梦/小红书等走完全相同的通用解析路径**，没有任何特殊端点和单独逻辑。
+**豆包与其他平台（抖音、即梦、小红书等）走完全相同的解析路径**，未发现针对豆包的特殊端点或独立逻辑。
 
 ### 请求体格式
 
@@ -109,7 +95,7 @@ if (str.contains("doubao.")) {
 {"url": "https://doubao.com/chat/xxxx/video/xxx"}
 ```
 
-### 响应格式（ProParseEntity）
+### 响应格式
 
 ```json
 {
@@ -117,9 +103,9 @@ if (str.contains("doubao.")) {
   "message": "success",
   "data": {
     "title": "视频标题",
-    "video": "https://xxx.mp4",      // ← 无水印视频直链
-    "videoCover": "https://xxx.jpg",  // 封面图
-    "videos": [],                     // 多视频列表
+    "video": "https://xxx.mp4",
+    "videoCover": "https://xxx.jpg",
+    "videos": [],
     "images": [],
     "musics": [],
     "text": ""
@@ -129,127 +115,75 @@ if (str.contains("doubao.")) {
 
 ---
 
-## 五、内部解密逻辑
+## 五、讨论
 
-### URL 预处理
+### 关键发现
 
-在调用通用 API 之前，APP 只对 URL 做了最小处理：
-
-```
-含 "doubao." → 标记为豆包平台
-           → 提取原始 URL
-           → POST 到服务器
-```
-
-**没有任何本地对 URL 的解析、提取、修改操作。**
-
-### Cookie/登录态
-
-- APP 用 OkHttp 自动管理 Cookie
-- 但签名机制不依赖 Session Cookie，而是依赖 URL 参数 `loginId + sign + timestamp`
-- 这意味着：**只要拿到有效的 loginId 和 token，就能通过纯 HTTP 调用 API**，无需模拟浏览器会话
-
----
-
-## 六、对我们的启发
-
-### 关键结论
-
-> 「便捷下载」的成功说明：豆包服务端确实存在获取无水印视频 URL 的方法。这个方法不在客户端，而在服务器端。
+该工具的成功说明：豆包服务端**确实存在**获取无水印视频 URL 的方法。该方法不在客户端，而在服务器端。
 
 ### 推测的服务器端方法
 
-服务器端可能使用以下方法之一：
-
 | 可能性 | 描述 | 难度 |
 |--------|------|------|
-| 内部 API | 使用了我们不知道的内部 API 端点 | 高—需抓包或逆向服务端 |
-| 任务提交 | 加密接口 + 轮询（旧方案） | 中—需分析服务器代码 |
-| 不同协议 | WebSocket / protobuf（非 HTTP） | 高—需抓包分析 |
-| 付费 API | 第三方付费去水印服务 | 低—需要资金 |
-| 特权通道 | 与字节跳动有合作/授权 | 极高—无法复制 |
+| 内部 API | 使用了我们不知道的内部 API 端点 | 高 |
+| 任务提交 | 加密接口 + 轮询机制（旧方案） | 中 |
+| 不同协议 | WebSocket / protobuf（非 HTTP） | 高 |
+| 付费服务 | 第三方付费去水印通道 | 低 |
+| 特权授权 | 特殊合作关系 | 极高 |
 
 ### 可操作性评估
 
 | 方案 | 可行性 | 备注 |
 |------|--------|------|
-| 注册账号调 API | ⚠️ 可行 | 需要手机号注册，有使用限制 |
-| 抓包已登录 APP | ✅ 最直接 | 用 mitmproxy 或其他代理抓真实请求 |
+| 注册账号调 API | ⚠️ 可行 | 需注册，有使用限制 |
+| 抓包分析合法请求 | ✅ 最直接 | 推荐使用代理工具 |
 | 破解服务端逻辑 | ❌ 不可行 | 服务端不可见 |
-| 利用开源项目 | ❌ 无效 | 已证实所有开源项目与我们一样 |
+| 利用开源项目 | ❌ 无效 | 已证实效果相同 |
 
-### 推荐方向
+### 建议方向
 
-1. **抓包分析**：运行已登录的「便捷下载」APP，用 mitmproxy 抓包，记录完整的请求 URL 和 Headers
-2. **注册账号**：如果 APP 支持免费层，直接注册调用
-3. **对比服务端行为**：服务器端可能是直接访问了豆包的内部 API 或使用了不同的参数组合
-
----
-
-## 七、反编译代码关键片段
-
-### 签名方法（C0961b.java）
-
-```java
-public static String m1408cj(String str) {
-    if (aiZ == 0 && C0953e.m1342pu() != null && ...) {
-        aiZ = C0953e.m1342pu().getData().getLoginId();
-    }
-    if (TextUtils.isEmpty(TOKEN) && ...) {
-        TOKEN = C0953e.m1342pu().getData().getgetToken();
-    }
-    long jM1344pw = C0953e.m1344pw() + aja;
-    String strFl = m.fl(m.fl(String.valueOf(aiZ) + String.valueOf(jM1344pw) + TOKEN));
-    return str + "?loginId=" + aiZ + "&sign=" + strFl + "&timestamp=" + jM1344pw;
-}
-```
-
-### 通用解析器调用（C0948z.java）
-
-```java
-StringEntity stringEntity = (StringEntity) ek.h.e(
-    C0960a.m1407ci(
-        iVar.f(C0961b.m1408cj(C0848a.acN), map)  // acN = pro/parse
-    ), 
-    StringEntity.class
-);
-```
-
-### ProParseEntity 字段
-
-```java
-public class ProParseEntity {
-    private String image;
-    private List<String> images;
-    private String music;
-    private List<String> musics;
-    private String text;
-    private String title;
-    private String video;         // 单个无水印视频URL
-    private String videoCover;    // 封面
-    private List<String> videos;  // 多视频列表
-}
-```
+1. **流量分析**：通过代理工具抓取合法登录后的请求，获取实际请求参数
+2. **直接调用**：如果服务支持免费层，注册账号后直接调用
+3. **对比分析**：对比服务端使用的 API 参数，寻找差异
 
 ---
 
-## 八、附录：完整 API 列表
+## 六、工具实现概览
 
-| API 变量 | URL |
-|----------|-----|
-| `acM` | `/api/parse/common/parse` |
-| `acN` | `/api/parse/pro/parse` |
-| `acj` | `/api/parse/short2long` |
-| `acm` | `/api/parse/check` |
-| `aco` | `/api/parse/ins` |
-| `acq` | `/api/parse/wechat/video` |
-| `acr` | `/api/parse/bilibili/video` |
-| `acu` | `/api/parse/douyin/user` |
-| `acz` | `/api/parse/m3u8` |
-| `acV` | `/api/login/login` |
-| `acU` | `/api/login/reg` |
-| `acX` | `/api/login/check` |
+### 技术栈
+
+- HTTP 客户端：OkHttp + OkGo
+- 下载引擎：FileDownloader
+- 辅助功能：FFmpeg（用于手动后处理，非核心功能）
+
+### 代码结构
+
+客户端代码按平台分包处理，存在大量混淆，类名均为无意义字母组合。
+
+核心功能分布：
+- 路由层：识别平台类型，分发到对应解析器
+- 解析层：封装 HTTP 请求，调用服务端 API
+- 下载层：接收视频 URL，执行下载
+
+### 校验逻辑
+
+应用级校验密钥由**包名哈希**生成，与登录态无关。未携带正确密钥的请求会被服务端识别为非法请求。
 
 ---
 
-> **分析师备注**：这份报告证实了服务器端存在真正的无水印视频能力。推荐后续通过抓包分析来获取实际请求参数，从而帮助我们的小程序/Edge 插件也能调用这一能力。
+> **备注**：本报告证实了服务器端存在真正的无水印视频能力。后续可通过流量分析获取实际请求参数，从而帮助我们的项目实现相同能力。
+
+---
+
+## 七、测试链接
+
+以下为开发者测试时使用的验证链接，**请在测试时使用你自己的测试视频**：
+
+| 链接类型 | URL |
+|---------|-----|
+| 豆包视频分享页 | `https://www.doubao.com/video-sharing?share_id=xxxxxxxx&source_type=mobile&video_id=v0d69cg10004d946nuiljht2d4d2v44g&share_scene=video_viewer` |
+| 测试视频 ID | `v0d69cg10004d946nuiljht2d4d2v44g` |
+| API 端点 | `POST /samantha/media/get_play_info` |
+
+> ⚠️ 以上链接仅作为功能验证用途，请替换为你自己生成的实际视频链接进行测试。测试时需登录豆包账号以获取有效 Cookie。
+

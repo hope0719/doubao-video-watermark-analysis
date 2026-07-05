@@ -303,4 +303,14 @@ export async function getVideoUrl(vid: string | number) {
 
 ---
 
-> **注意事项**：本报告的结论仅限分析当时（2026年7月5日）的情况。豆包的 API 和行为可能随时变化。建议持续关注 GitHub 开源社区动态，发现新方法时第一时间验证。
+## 七、测试链接
+
+以下为开发者测试时使用的验证链接，**请在测试时使用你自己的测试视频**：
+
+| 链接类型 | URL |
+|---------|-----|
+| 豆包视频分享页 | `https://www.doubao.com/video-sharing?share_id=49141126666482178&source_type=mobile&video_id=v0d69cg10004d946nuiljht2d4d2v44g&share_scene=video_viewer` |
+| 测试视频 ID | `v0d69cg10004d946nuiljht2d4d2v44g` |
+| API 端点 | `POST /samantha/media/get_play_info` |
+
+> ⚠️ 以上链接仅作为功能验证用途，请替换为你自己生成的实际视频链接进行测试。测试时需登录豆包账号以获取有效 Cookie。
