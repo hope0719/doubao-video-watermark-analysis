@@ -118,7 +118,9 @@
 | 登录态下载 | ❌ 无效 | 登录后调用同一 API，返回同一文件 |
 | 创作者身份验证 | ❌ 未找到 | 未找到创作者专属的 API 端点 |
 | 画面裁剪后处理 | ⏳ 可行但非真正去水印 | 裁剪边缘水印区域，但有画质损失 |
-| AI 后处理去水印 | ⏳ 理论可行 | 需要模型推理，画质有损，计算量大 |
+| AI 后处理去水印 | ✅ 已有可用工具 | Morph Studio 等AI修复工具可逐帧去除水印 |
+| logo_type 参数移除 | ❌ 无效 | CDN 缓存 key 不含查询参数，与 lr 参数同理 |
+| 图片水印绕过 | ✅ 可行 | 图片水印是前端叠加层，可提取原始URL绕过 |
 
 ---
 
@@ -133,9 +135,16 @@
 
 **本仓库的结论仅限视频。图片去水印可正常工作！**
 
+**原理**：豆包图片水印是**前端叠加层**（CSS/Canvas Overlay），服务器返回的原始图片URL本身无水印。通过解析页面SSR数据提取原始URL即可获得无水印图片。而视频水印是**服务端编码嵌入**，无法绕过。
+
+可用的图片去水印方案：
+
 - 图集页面返回 `rc_gen_image/{32位md5}` 路径是**无水印原图**
 - [Qalxry/doubao-no-watermark](https://github.com/Qalxry/doubao-no-watermark)（⭐149）是纯图片方案，仍在工作
+- [ihmily/doubao-nomark](https://github.com/ihmily/doubao-nomark) 图片提取功能有效（解析页面JSON获取原始图片URL）
+- [RusianHu/lsj-watermark-remover](https://github.com/RusianHu/lsj-watermark-remover) 使用反向Alpha混合算法，纯前端运算
 - Canvas 合并去水印也是可行的图片方案
+- 豆包APP内置"变清晰"功能（超分辨率重建时自动填充水印区域）
 
 ---
 
@@ -148,6 +157,7 @@
 │   ├── technical-report.md      # 完整技术分析报告
 │   ├── troubleshooting-log.md   # 排查全记录
 │   ├── FIND_MINIPROGRAM_API.md  # 手机端 API 抓包指南
+│   ├── alternative-approaches.md # 替代方案深度调研报告（AI工具/开源项目/小程序）
 │   └── 方向分析报告.md            # 最新方向分析
 ├── tools/                       # Python 分析工具集（19 个脚本）
 ├── chrome-extension/            # Chrome 扩展拦截器
