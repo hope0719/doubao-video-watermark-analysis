@@ -1,0 +1,27 @@
+{
+   "background": {
+      "service_worker": "background.js"
+   },
+   "content_scripts": [
+      {
+         "js": [ "bridge.js" ],
+         "matches": [ "*://*.doubao.com/*" ],
+         "run_at": "document_start"
+      }
+   ],
+   "description": "拦截豆包API提取无水印原图原视频",
+   "host_permissions": [ "*://*.doubao.com/*" ],
+   "icons": {
+      "128": "icon-128.png",
+      "16": "icon-16.png",
+      "48": "icon-48.png"
+   },
+   "manifest_version": 3,
+   "name": "豆包图片视频水印消失工具",
+   "permissions": [ "downloads" ],
+   "version": "2.0.0",
+   "web_accessible_resources": [{
+      "matches": [ "*://*.doubao.com/*" ],
+      "resources": [ "content.js", "qr-code.png" ]
+   }]
+}

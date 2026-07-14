@@ -1,0 +1,86 @@
+name: release
+
+on:
+  workflow_dispatch: # 手动触发工作流
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    name: Build and Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22.22.3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install esbuild
+        run: pnpm install --ignore-scripts=false esbuild
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build project
+        run: pnpm build
+
+      - name: Verify build files
+        run: |
+          ls -la dist/
+          if [ ! -f "dist/doubao-downloader.user.js" ] || [ ! -f "dist/logo.png" ] || [ ! -f "dist/manifest.json" ] || [ ! -f "dist/popup.html" ]; then
+            echo "Error: Build files missing!"
+            exit 1
+          fi
+
+      - name: Package dist files to zip
+        run: |
+          cd dist
+          zip -r ../doubao-downloader.zip ./*
+          cd ..
+          ls -la doubao-downloader.zip
+
+      - name: Upload Browser Extension
+        uses: actions/upload-artifact@v4
+        with:
+          name: doubao-downloader-extension
+          path: doubao-downloader.zip
+          retention-days: 1
+
+      - name: Upload UserScript
+        uses: actions/upload-artifact@v4
+        with:
+          name: doubao-downloader-userscript
+          path: dist/doubao-downloader.user.js
+          retention-days: 1
+
+      - name: Install jq and extract version from package.json
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          echo "PACKAGE_VERSION=v$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Create Release Draft with Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+
+          tag_name: ${{ env.PACKAGE_VERSION }}
+          name: "${{ env.PACKAGE_VERSION }}"
+          body: |
+
+            ## What's Changed
+            - write changelog
+
+
+          files: |
+            doubao-downloader.zip
+            dist/doubao-downloader.user.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,20 @@
+# ===== macOS 元数据 =====
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+
+# ===== 内部工具 / 私有记忆（不对外）=====
+.workbuddy/
+.dumate/
+.playwright-cli/
+
+# ===== 调试产物 =====
+www.doubao.com.har
+xaa
+*.log
+
+# ===== 依赖（参考项目为纯源码，正常不会有，保险起见）=====
+node_modules/
+
+# ===== 打包产物（源码已在对应目录，zip 为构建产物，不入库）=====
+*.zip

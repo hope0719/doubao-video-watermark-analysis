@@ -1,0 +1,11 @@
+services:
+  app:
+    image: doubao-nomark-online-app:latest
+    platform: linux/amd64
+    ports:
+      - "3208:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped

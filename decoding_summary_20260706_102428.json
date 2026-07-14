@@ -1,0 +1,21 @@
+{
+  "timestamp": "20260706_102428",
+  "total_methods": 3,
+  "successful_decodings": [
+    {
+      "method": "URL解码",
+      "size": 95597,
+      "description": "URL百分比解码"
+    },
+    {
+      "method": "Unicode解码",
+      "size": 49867,
+      "description": "Unicode转义解码"
+    },
+    {
+      "method": "字符替换",
+      "size": 28001,
+      "description": "尝试修复损坏字符"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# Example cloudflared config for exposing the local declank backend.
+# Copy to ~/.cloudflared/config.yml and fill in your tunnel id + domain.
+#
+# Setup (run on the machine that has remove-ai-watermarks installed):
+#   cloudflared tunnel login
+#   cloudflared tunnel create declank-api
+#   cloudflared tunnel route dns declank-api api.YOUR-DOMAIN.com
+#   node server.js                 # backend on :3333 (no build needed for API)
+#   cloudflared tunnel run declank-api
+#
+# Then in the Cloudflare Pages project set:
+#   BACKEND_URL = https://api.YOUR-DOMAIN.com
+
+tunnel: <TUNNEL_ID>
+credentials-file: /home/YOU/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: api.YOUR-DOMAIN.com
+    service: http://localhost:3333
+  - service: http_status:404

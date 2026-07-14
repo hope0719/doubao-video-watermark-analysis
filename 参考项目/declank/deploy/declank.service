@@ -1,0 +1,27 @@
+# systemd user service for the declank backend.
+# Install:
+#   cp deploy/declank.service ~/.config/systemd/user/
+#   # edit the absolute paths below to match your machine
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now declank.service
+#   loginctl enable-linger "$USER"   # so it starts on boot without a login
+
+[Unit]
+Description=declank backend (remove-ai-watermarks web API)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/declank
+ExecStart=/usr/bin/node /path/to/declank/server.js
+Environment=NODE_ENV=production
+Environment=PORT=3333
+# include the dir holding remove-ai-watermarks (pipx/uv put it in ~/.local/bin)
+Environment=PATH=/home/YOU/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=REMOVE_AI_WATERMARKS_CLI=/home/YOU/.local/bin/remove-ai-watermarks
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

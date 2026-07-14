@@ -1,0 +1,551 @@
+/* Declank - minimal, black on white. Layout follows the dewatermark.ai flow
+   (centered hero, one card: mode tabs -> upload -> format chips) but stays
+   monochrome and system-font. No framework, one small stylesheet. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #111111;
+  --muted: #5b5b5b;
+  --faint: #8a8a8a;
+  --line: #d9d9d9;
+  --line-soft: #ececec;
+  --fill: #f6f6f6;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: "Space Grotesk Variable", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+/* ---------- page shell ---------- */
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 20px 96px;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.hero .logo {
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 20px;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 6.5vw, 46px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  max-width: 16ch;
+  margin: 0 auto;
+}
+
+.hero .sub {
+  margin: 16px auto 0;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 16px;
+  text-wrap: pretty;
+}
+
+/* ---------- card ---------- */
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.card.over {
+  border-color: var(--ink);
+}
+
+/* ---------- mode tabs ---------- */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  flex: 1 1 0;
+  padding: 13px 8px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  background: #fff;
+  border: 0;
+  border-left: 1px solid var(--line);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tab:first-child {
+  border-left: 0;
+}
+
+.tab:hover {
+  color: var(--ink);
+  background: var(--line-soft);
+}
+
+.tab[aria-checked="true"] {
+  color: #fff;
+  background: var(--ink);
+}
+
+.tab[aria-checked="true"]:hover {
+  background: #000;
+}
+
+.tab-hint {
+  padding: 12px 20px;
+  font-size: 13px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+/* ---------- card body ---------- */
+.card-body {
+  padding: 24px 20px;
+}
+
+/* ---------- uploader ---------- */
+.uploader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 16px 8px;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background: #000;
+}
+
+.upload-help {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.upload-help kbd {
+  font: inherit;
+  font-size: 12px;
+  padding: 1px 6px;
+  color: var(--ink);
+  background: var(--fill);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+/* ---------- card foot: limits + format chips ---------- */
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.chips {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.chip {
+  padding: 2px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--fill);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+/* ---------- working area (file chosen) ---------- */
+.block + .block {
+  margin-top: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.run-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.file-meta {
+  font-size: 13px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.file-meta button {
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ---------- fields ---------- */
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+input[type="number"]:hover,
+select:hover {
+  border-color: var(--faint);
+}
+
+input::placeholder {
+  color: var(--faint);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field + .field,
+.row + .row {
+  margin-top: 12px;
+}
+
+/* native disclosure for advanced options */
+.adv {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.adv > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.adv > summary::-webkit-details-marker {
+  display: none;
+}
+
+.adv > summary::after {
+  content: "+";
+  float: right;
+  color: var(--muted);
+}
+
+.adv[open] > summary::after {
+  content: "\2212";
+}
+
+.adv-body {
+  padding: 0 12px 12px;
+}
+
+/* ---------- buttons ---------- */
+.primary {
+  padding: 11px 22px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.primary:hover:not(:disabled) {
+  background: #000;
+}
+
+.primary:disabled {
+  color: var(--faint);
+  background: #fff;
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.ghost {
+  padding: 7px 14px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ghost:hover {
+  border-color: var(--ink);
+}
+
+.error {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--fill);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* ---------- result + cleaned image ---------- */
+.result-head {
+  margin-bottom: 12px;
+}
+
+.result-head h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cap {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* replace-image affordance under the stage */
+.swap {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.swap button {
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* the staged image: checkerboard shows transparency. The cleaned result
+   replaces the original in place once cleaning finishes. */
+.compare {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fbfbfb;
+  background-image:
+    linear-gradient(45deg, #eee 25%, transparent 25%),
+    linear-gradient(-45deg, #eee 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eee 75%),
+    linear-gradient(-45deg, transparent 75%, #eee 75%);
+  background-size: 22px 22px;
+  background-position: 0 0, 0 11px, 11px -11px, -11px 0;
+}
+
+.compare img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.compare.clickable {
+  cursor: pointer;
+}
+
+/* hovering the cleaned image darkens it and reveals a centered download */
+.compare:has(.dl)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+}
+
+.compare:has(.dl):hover::after,
+.compare:has(.dl):focus-within::after {
+  opacity: 1;
+}
+
+.dl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+  pointer-events: none;
+}
+
+.compare:hover .dl,
+.compare:focus-within .dl {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+/* touch devices have no hover: keep the download always reachable */
+@media (hover: none) {
+  .compare:has(.dl)::after {
+    opacity: 1;
+  }
+  .dl {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--line);
+  border-top-color: var(--ink);
+  border-radius: 999px;
+  animation: spin 0.8s linear infinite;
+}
+
+.elapsed {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 540px) {
+  .page {
+    padding-top: 40px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .tab {
+    padding: 12px 4px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

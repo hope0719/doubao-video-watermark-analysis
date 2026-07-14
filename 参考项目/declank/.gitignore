@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.transformed.*
+
+# design + session tooling (not part of the app)
+.impeccable/
+.expect/

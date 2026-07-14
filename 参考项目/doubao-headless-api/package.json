@@ -1,0 +1,12 @@
+{
+  "name": "doubao-headless-api",
+  "version": "1.0.0",
+  "description": "Lightweight Doubao no-watermark image API via cookies",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

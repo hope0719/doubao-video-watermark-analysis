@@ -1,0 +1,38 @@
+{
+  "name": "declank",
+  "version": "1.0.0",
+  "description": "Image cleanup CLI + web UI wrapper for remove-ai-watermarks",
+  "type": "module",
+  "bin": {
+    "declank": "./bin/imgx.js",
+    "clearframe": "./bin/imgx.js",
+    "imgx": "./bin/imgx.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "server": "node --watch server.js",
+    "dev": "vite",
+    "dev:all": "concurrently -k -n api,web -c green,cyan \"npm:server\" \"npm:dev\"",
+    "build": "vite build",
+    "preview": "vite preview",
+    "og": "node scripts/og.mjs",
+    "transform": "node bin/imgx.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^2.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@fontsource-variable/space-grotesk": "^5.2.10",
+    "@napi-rs/canvas": "^1.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "concurrently": "^10.0.3",
+    "playwright": "^1.60.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  }
+}

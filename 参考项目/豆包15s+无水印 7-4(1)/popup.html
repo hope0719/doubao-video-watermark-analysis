@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>豆包15s+无水印 7.4</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <img src="icon.png" class="logo" alt="logo" />
+      <div class="header-info">
+        <h1 class="title">豆包15s+无水印 7.4</h1>
+        <p class="subtitle">5/10/15 秒切换 + 新版图片/视频无水印下载</p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <p class="info-text">已集成豆包与 Dola 的技能包规则覆盖，同时保留原有图片、视频下载能力。</p>
+    </div>
+
+    <div id="activatedPanel" class="section hidden">
+      <div class="status-badge active">
+        <span class="dot"></span>
+        本地版
+      </div>
+      
+      <div class="info-box" id="activationInfoBox">
+        <p class="info-text" id="activationInfo">状态：可用</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-value" id="imageCount">0</span>
+          <span class="stat-label">已捕获图片</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="videoCount">0</span>
+          <span class="stat-label">已捕获视频</span>
+        </div>
+      </div>
+      
+      <div class="actions">
+        <button id="repairBtn" class="btn btn-primary">修复当前页面</button>
+        <button id="refreshBtn" class="btn btn-ghost">刷新统计</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p class="version-text">版本 <span id="versionText">10.2.14</span></p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
