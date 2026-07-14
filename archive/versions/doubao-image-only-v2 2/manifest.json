@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "name": "豆包图片去水印",
+  "version": "3.0.0",
+  "description": "豆包/通义千问/即梦 图片去水印 + 视频无水印下载（千问/即梦）",
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "clipboardWrite",
+    "downloads",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.doubao.com/*",
+    "https://jimeng.jianying.com/*",
+    "https://dreamina.capcut.com/*",
+    "https://qwen.cn/*",
+    "https://qwenhub.com/*",
+    "https://*.byteimg.com/*",
+    "https://*.vlabstatic.com/*",
+    "https://*.vlabvod.com/*",
+    "https://*.aliyuncs.com/*"
+  ],
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.doubao.com/*",
+        "https://jimeng.jianying.com/*",
+        "https://dreamina.capcut.com/*",
+        "https://qwen.cn/*",
+        "https://qwenhub.com/*"
+      ],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.doubao.com/*",
+        "https://jimeng.jianying.com/*",
+        "https://dreamina.capcut.com/*",
+        "https://qwen.cn/*",
+        "https://qwenhub.com/*"
+      ],
+      "js": ["content/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,87 @@
+/**
+ * 豆包图片去水印 - Content Script 样式 v4.2
+ * 绿色渐变按钮，fixed 定位在图片右下角
+ */
+
+/* ═══════════════════════════════════════════════════════════ */
+/* 图片区域「原图下载」按钮 — 绿色渐变，右下角                 */
+/* ═══════════════════════════════════════════════════════════ */
+
+.dw-img-btn {
+  position: fixed;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(7, 193, 96, 0.5);
+  transition: all 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dw-img-btn:hover {
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(7, 193, 96, 0.5);
+}
+
+.dw-img-btn:active {
+  transform: scale(0.93);
+}
+
+.dw-img-btn svg {
+  flex-shrink: 0;
+}
+
+/* 页面通知 */
+.dw-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999999;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dw-notification.dw-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dw-notification-info {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+
+.dw-notification-success {
+  background: linear-gradient(135deg, #07c160, #00a86b);
+  color: #fff;
+}
+
+.dw-notification-warning {
+  background: linear-gradient(135deg, #f0a020, #e8951a);
+  color: #fff;
+}
+
+.dw-notification-error {
+  background: rgba(231, 76, 60, 0.9);
+  color: #fff;
+}

@@ -1,0 +1,176 @@
+/**
+ * 豆包图片去水印 - Content Script 样式
+ * 图片下载按钮样式
+ */
+
+/* ═══════════════════════════════════════════════════════════ */
+/* 图片区域「原图下载」按钮                                    */
+/* ═══════════════════════════════════════════════════════════ */
+
+.dw-img-btn {
+  position: fixed;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.60);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dw-img-btn:hover {
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(7, 193, 96, 0.5);
+}
+
+.dw-img-btn:active {
+  transform: scale(0.93);
+}
+
+.dw-img-btn svg {
+  flex-shrink: 0;
+}
+
+/* 页面通知 */
+.dw-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999999;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dw-notification.dw-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dw-notification-info {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+
+.dw-notification-success {
+  background: linear-gradient(135deg, #07c160, #00a86b);
+  color: #fff;
+}
+
+.dw-notification-warning {
+  background: linear-gradient(135deg, #f0a020, #e8951a);
+  color: #fff;
+}
+
+.dw-notification-error {
+  background: rgba(231, 76, 60, 0.9);
+  color: #fff;
+}
+
+/* 即梦/通义千问 批量下载按钮 */
+.dw-all-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.60);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dw-all-btn:hover {
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(7, 193, 96, 0.5);
+}
+
+.dw-all-btn:active {
+  transform: scale(0.95);
+}
+
+.dw-all-btn svg {
+  flex-shrink: 0;
+}
+
+/* 视频下载按钮（千问/即梦页面） */
+.dw-video-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.60);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dw-video-btn:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.5);
+}
+
+.dw-video-btn:active {
+  transform: scale(0.95);
+}
+
+.dw-video-btn svg {
+  flex-shrink: 0;
+}
+
+/* 千问页面：标记识别到的图片 */
+.dw-qwen-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(102, 126, 234, 0.85);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 99999;
+}

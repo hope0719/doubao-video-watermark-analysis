@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>豆包视频拦截器</title>
+  <style>
+    body {
+      width: 500px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+    h2 {
+      margin: 0 0 15px 0;
+      color: #333;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 8px 15px;
+      margin: 5px 5px 5px 0;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #45a049;
+    }
+    .btn-danger {
+      background: #f44336;
+    }
+    .btn-danger:hover {
+      background: #da190b;
+    }
+    .url-item {
+      background: #f5f5f5;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 4px;
+      word-break: break-all;
+      font-size: 12px;
+    }
+    .etag {
+      color: #666;
+      font-style: italic;
+      margin-top: 5px;
+    }
+    .count {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .empty {
+      color: #999;
+      font-style: italic;
+    }
+    #requests, #responses {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎬 豆包视频请求拦截器</h2>
+  
+  <div class="section">
+    <button class="btn" id="refreshBtn">刷新数据</button>
+    <button class="btn btn-danger" id="clearBtn">清空记录</button>
+  </div>
+  
+  <div class="section">
+    <h3>捕获的请求 (<span class="count" id="requestCount">0</span>)</h3>
+    <div id="requests">
+      <p class="empty">暂无数据，请访问豆包视频页面</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h3>捕获的响应 (<span class="count" id="responseCount">0</span>)</h3>
+    <div id="responses">
+      <p class="empty">暂无数据</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h3>使用说明</h3>
+    <ol style="font-size: 12px; color: #666; margin: 10px 0;">
+      <li>打开豆包视频分享页面</li>
+      <li>扩展会自动拦截所有网络请求</li>
+      <li>点击"刷新数据"查看捕获的请求</li>
+      <li>对比不同请求的ETag值</li>
+    </ol>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

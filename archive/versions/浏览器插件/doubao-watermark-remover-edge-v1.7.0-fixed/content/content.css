@@ -1,0 +1,229 @@
+/**
+ * 豆包去水印 - Content Script 样式
+ * 浮动按钮 + 页面通知 + 拦截状态指示
+ */
+
+/* 浮动按钮 */
+#doubao-watermark-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#doubao-watermark-btn .dw-btn-main {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(7, 193, 96, 0.4);
+  transition: all 0.3s ease;
+}
+
+#doubao-watermark-btn:hover .dw-btn-main {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(7, 193, 96, 0.5);
+}
+
+#doubao-watermark-btn:active .dw-btn-main {
+  transform: scale(0.95);
+}
+
+#doubao-watermark-btn .dw-btn-label {
+  font-size: 11px;
+  color: #07c160;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 加载旋转 */
+#doubao-watermark-btn.dw-loading .dw-btn-main {
+  animation: dw-spin 1s linear infinite;
+}
+
+@keyframes dw-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 页面通知 */
+.dw-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999999;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dw-notification.dw-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dw-notification-info {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+}
+
+.dw-notification-success {
+  background: linear-gradient(135deg, #07c160, #00a86b);
+  color: #fff;
+}
+
+.dw-notification-warning {
+  background: linear-gradient(135deg, #f0a020, #e8951a);
+  color: #fff;
+}
+
+.dw-notification-error {
+  background: rgba(231, 76, 60, 0.9);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* 视频区域「无水印下载」按钮 */
+/* ═══════════════════════════════════════════════════════════ */
+
+.dw-nowm-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(7, 193, 96, 0.5);
+  transition: all 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(4px);
+}
+
+.dw-nowm-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 18px rgba(7, 193, 96, 0.6);
+}
+
+.dw-nowm-btn:active {
+  transform: scale(0.95);
+}
+
+.dw-nowm-btn svg {
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* v11 图片区域「原图下载」按钮                                 */
+/* ═══════════════════════════════════════════════════════════ */
+
+.dw-img-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.60);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.dw-img-btn:hover {
+  background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px rgba(7, 193, 96, 0.5);
+}
+
+.dw-img-btn:active {
+  transform: scale(0.93);
+}
+
+.dw-img-btn svg {
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* v12 即梦 / Dreamina 下载按钮（fixed 定位）                  */
+/* ═══════════════════════════════════════════════════════════ */
+
+.dw-jm-fixed-btn {
+  position: fixed;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dw-jm-fixed-btn:hover {
+  transform: scale(1.05);
+}
+
+.dw-jm-fixed-btn:active {
+  transform: scale(0.95);
+}
+
+/* 视频下载按钮 - 右上角 */
+.dw-jm-video-fixed-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.dw-jm-video-fixed-btn:hover {
+  box-shadow: 0 4px 18px rgba(102, 126, 234, 0.6);
+}
+
+/* 图片下载按钮 - 左下角（避免和原生右上角按钮重叠） */
+.dw-jm-img-fixed-btn {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.dw-jm-img-fixed-btn:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 18px rgba(102, 126, 234, 0.5);
+}

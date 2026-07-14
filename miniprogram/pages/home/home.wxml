@@ -1,0 +1,15 @@
+<view class="containerhome">
+  <view class="section-title">常用功能</view>
+  <view class="card-section">
+    <view class="feature-grid">
+      <view class="feature-item" bindtap="goToLiveAnalysis">
+        <view class="feature-icon live-icon"></view>
+        <text class="feature-name">豆包教程</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="copyright">豆包去水印工具</text>
+  </view>
+</view>

@@ -1,0 +1,73 @@
+<view class="tutorial-container">
+  <view class="tutorial-header">
+    <text class="title">📖 豆包去水印教程</text>
+    <text class="subtitle">简单几步，轻松去除水印</text>
+  </view>
+
+  <!-- 图片教程 -->
+  <view class="tutorial-section">
+    <view class="section-header">
+      <view class="section-icon">🖼️</view>
+      <text class="section-title">图片教程（图集去水印）</text>
+    </view>
+    <view class="image-wrapper">
+      <image
+        src="/images/doubao-tutorial-image.png"
+        mode="widthFix"
+        class="tutorial-image"
+        bindtap="previewImage"
+        data-url="/images/doubao-tutorial-image.png"
+      />
+      <view class="image-caption">
+        <text>1. 打开豆包生成的图片 → 2. 点击下方分享按钮 → 3. 选择"复制链接"</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 视频教程 -->
+  <view class="tutorial-section">
+    <view class="section-header">
+      <view class="section-icon">🎬</view>
+      <text class="section-title">视频教程（视频去水印）</text>
+    </view>
+    <view class="image-wrapper">
+      <image
+        src="/images/doubao-tutorial-video.png"
+        mode="widthFix"
+        class="tutorial-image"
+        bindtap="previewImage"
+        data-url="/images/doubao-tutorial-video.png"
+      />
+      <view class="image-caption">
+        <text>1. 长按视频 → 2. 选择"分享" → 3. 点击"更多" → 4. 选择"拷贝"</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用提示 -->
+  <view class="tips-section">
+    <view class="tips-header">
+      <text class="tips-icon">💡</text>
+      <text class="tips-title">温馨提示</text>
+    </view>
+    <view class="tips-content">
+      <view class="tip-item">
+        <text class="tip-bullet">•</text>
+        <text class="tip-text">豆包链接有效期较短，请及时下载</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-bullet">•</text>
+        <text class="tip-text">支持批量选择图片下载，长按可预览大图</text>
+      </view>
+      <view class="tip-item">
+        <text class="tip-bullet">•</text>
+        <text class="tip-text">如遇提取失败，请重新复制最新链接重试</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-actions">
+    <button class="back-btn" bindtap="goBack">返回首页</button>
+  </view>
+</view>

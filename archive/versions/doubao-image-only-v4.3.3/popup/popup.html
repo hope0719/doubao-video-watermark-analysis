@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>豆包图片去水印</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+
+    <!-- 标题 -->
+    <div class="popup-header">
+      <h1>🫧 豆包图片去水印</h1>
+      <span class="version">v3.0</span>
+    </div>
+
+    <!-- 输入区 -->
+    <div class="input-section">
+      <textarea id="urlInput" placeholder="粘贴豆包/通义千问/即梦 图片/视频链接..." rows="3"></textarea>
+      <div class="btn-row">
+        <button id="extractBtn" class="btn btn-primary">🔍 解析</button>
+        <button id="pasteBtn" class="btn btn-secondary">📋 粘贴</button>
+        <button id="currentBtn" class="btn btn-secondary">📄 当前页</button>
+        <button id="clearBtn" class="btn btn-ghost">清空</button>
+      </div>
+    </div>
+
+    <!-- 自动提取 -->
+    <div class="auto-extract">
+      <label>
+        <input type="checkbox" id="autoExtract">
+        <span>粘贴/获取页面时自动解析</span>
+      </label>
+    </div>
+
+    <!-- 加载中 -->
+    <div id="loadingSection" class="loading-section">
+      <div class="spinner"></div>
+      <span id="loadingText">正在解析...</span>
+    </div>
+
+    <!-- 错误提示 -->
+    <div id="errorSection" class="error-section">
+      <span id="errorText"></span>
+    </div>
+
+    <!-- 结果区 -->
+    <div id="resultSection" class="result-section">
+
+      <!-- 视频结果 -->
+      <div id="videoResult" class="video-result" style="display:none">
+        <div class="video-preview">
+          <video id="resultVideo" controls preload="metadata" style="width:100%;max-height:200px;border-radius:8px;background:#000;"></video>
+        </div>
+        <button id="downloadVideoBtn" class="btn btn-primary" style="width:100%;margin-top:8px;">⬇ 下载无水印视频</button>
+      </div>
+
+      <!-- 图片预览 -->
+      <div id="imagesResult" class="images-result" style="display:none">
+        <div class="images-header">
+          <span id="imagesCount">共 0 张</span>
+          <button id="selectAllBtn" class="btn btn-sm">全选</button>
+        </div>
+        <div id="imagesGrid" class="images-grid"></div>
+      </div>
+
+    </div>
+
+    <!-- 操作区 -->
+    <div id="imageActions" class="action-bar" style="display:none">
+      <button id="downloadSelectedBtn" class="btn btn-primary">⬇ 下载选中</button>
+      <button id="downloadAllBtn" class="btn btn-secondary">⬇ 下载全部</button>
+    </div>
+
+    <!-- 平台说明 -->
+    <div class="platform-note">
+      <span>支持：豆包/通义千问/即梦 • 图片去水印 + 视频无水印下载</span>
+    </div>
+
+  </div>
+  <script src="../utils/api.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

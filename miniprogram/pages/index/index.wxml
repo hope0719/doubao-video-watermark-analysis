@@ -1,0 +1,132 @@
+<view class="container">
+  <view class="navbar-header"></view>
+  <view class="notice-bar" wx:if="{{noticeList.length > 0}}">
+    <view class="notice-icon">📢</view>
+    <text class="notice-text">{{noticeList[0]}}</text>
+  </view>
+  <view class="main-content">
+    <view class="input-section">
+      <view class="input-box">
+        <input class="url-input" bindinput="inputChange" maxlength="-1" placeholder="请输入豆包链接" value="{{analysisUrl}}" />
+        <button class="submit-btn" bindtap="handleAnalysisTap">提取</button>
+      </view>
+      <text class="tips-text">支持豆包视频和图片去水印</text>
+    </view>
+    <view class="quick-actions">
+      <button class="quick-btn" bindtap="pasteTap">
+        <text>粘贴地址</text>
+      </button>
+      <button class="quick-btn" bindtap="clearTap">
+        <text>清空地址</text>
+      </button>
+    </view>
+    <view class="auto-settings">
+      <view class="settings-row">
+        <view class="setting-item-inline" bindtap="toggleAutoAnalysis">
+          <view class="checkbox-wrapper">
+            <view class="checkbox {{autoAnalysis ? 'checked' : ''}}"></view>
+          </view>
+          <text class="setting-label">粘贴并自动提取</text>
+        </view>
+        <view class="setting-item-inline" bindtap="toggleAutoDownload">
+          <view class="checkbox-wrapper">
+            <view class="checkbox {{autoDownload ? 'checked' : ''}}"></view>
+          </view>
+          <text class="setting-label">提取后自动下载</text>
+        </view>
+      </view>
+    </view>
+    <view class="live-analysis-section">
+      <button class="quick-livebtn" bindtap="handleLiveAnalysis">
+        <text>豆包教程</text>
+      </button>
+    </view>
+
+    <block wx:if="{{!hideResult}}">
+      <view class="video-result" wx:if="{{type === 'video' || type === 'images'}}">
+        <view class="tabs">
+          <view class="tab-item {{currentTab == 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">
+            <text>{{type === 'video' ? '视频' : '图集'}}</text>
+          </view>
+          <view class="tab-item {{currentTab == 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">
+            <text>封面</text>
+          </view>
+          <view class="tab-item {{currentTab == 2 ? 'active' : ''}}" bindtap="switchTab" data-index="2">
+            <text>文案</text>
+          </view>
+        </view>
+        <view class="tab-content">
+          <view class="tab-pane {{currentTab == 0 ? 'active' : ''}}" wx:if="{{currentTab == 0}}">
+            <video wx:if="{{type === 'video'}}" class="video-player" id="myVideo" src="{{videoUrl}}" controls autoplay bindloadedmetadata="handleVideoLoaded" binderror="handleVideoError" bindended="handleVideoEnded" bindplay="handleVideoPlay" bindpause="handleVideoPause"></video>
+            <view wx:if="{{type === 'images'}}" class="images-container">
+              <view class="images-header">
+                <text class="images-count">共 {{images.length}} 张图片</text>
+                <text class="images-tip">点击预览 · 长按操作 · 勾选后批量保存</text>
+              </view>
+              <view class="images-grid">
+                <view class="image-item {{selectedImages[index] ? 'image-selected' : ''}}" wx:for="{{images}}" wx:key="index">
+                  <view class="image-wrapper">
+                    <image class="grid-image" src="{{item}}" mode="aspectFill" data-url="{{item}}" data-urls="{{images}}" data-index="{{index}}" bindtap="previewImage" bindlongpress="longPressImage"></image>
+                    <view class="image-index">{{index + 1}}</view>
+                    <view class="image-select" bindtap="toggleImageSelect" data-index="{{index}}">
+                      <view class="select-checkbox {{selectedImages[index] ? 'checked' : ''}}">
+                        <text wx:if="{{selectedImages[index]}}">✓</text>
+                      </view>
+                    </view>
+                  </view>
+                  <view class="image-actions">
+                    <button class="image-btn save-btn" bindtap="saveSingleImage" data-url="{{item}}">保存</button>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="tab-pane {{currentTab == 1 ? 'active' : ''}}" wx:if="{{currentTab == 1}}">
+            <view class="cover-container">
+              <image class="cover-image" src="{{videoPic}}" mode="aspectFit" bindtap="previewCover"></image>
+            </view>
+          </view>
+          <view class="tab-pane {{currentTab == 2 ? 'active' : ''}}" wx:if="{{currentTab == 2}}">
+            <view class="desc-container">
+              <text class="desc-text">{{desc}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="result-actions">
+          <block wx:if="{{currentTab == 0 && type === 'video'}}">
+            <button class="result-btn primary" bindtap="saveTap">保存视频</button>
+            <button class="result-btn secondary" bindtap="copyLinkTap">复制链接</button>
+          </block>
+          <block wx:if="{{currentTab == 0 && type === 'images'}}">
+            <button class="select-all-btn {{selectAll ? 'selected' : ''}}" bindtap="toggleSelectAll">
+              <view class="checkbox {{selectAll ? 'checked' : ''}}"></view>
+              全选
+            </button>
+            <button class="result-btn primary" bindtap="saveSelectedImages">保存选中 ({{selectedCount}})</button>
+          </block>
+          <block wx:if="{{currentTab == 1}}">
+            <button class="result-btn primary" bindtap="saveCover">保存封面</button>
+          </block>
+          <block wx:if="{{currentTab == 2}}">
+            <button class="result-btn primary" bindtap="copyDescTap">复制文案</button>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<view class="download-progress-modal" wx:if="{{showProgressModal}}">
+  <view class="progress-container">
+    <view class="progress-title">正在下载视频</view>
+    <view class="progress-bar-container">
+      <view class="progress-bar" style="width: {{downloadProgress + '%'}}"></view>
+    </view>
+    <view class="progress-text">{{downloadProgress + '%'}}</view>
+    <button class="cancel-btn" bindtap="cancelDownload">取消下载</button>
+  </view>
+</view>
+
+<view class="footer">
+  <text class="copyright">本工具仅限个人学习使用,不存储任何内容,版权归原作者及平台所有</text>
+</view>

@@ -1,0 +1,335 @@
+================================================================
+  豆包视频无水印链接解析分析报告
+  视频链接：https://www.doubao.com/video-sharing?share_id=49141126666482178&source_type=mobile&video_id=v0d69cg10004d946nuiljht2d4d2v44g&share_scene=video_viewer
+  分析时间：2026-07-05 00:06 ~ 00:39 (Asia/Shanghai)
+  分析人：马尔可夫
+================================================================
+
+一、目标概述
+────────────────────────────────────────────────────────────────
+解析豆包（Doubao）AI 视频生成分享页的无水印视频直链。
+视频 ID：v0d69cg10004d946nuiljht2d4d2v44g
+分享 ID：49141126666482178
+视频内容：两位外国女性边走边对话（长沙柏漫国际大酒店推广）
+分辨率：720×1280（竖屏 9:16）
+时长：约 10 秒
+
+
+二、分析方法与工具
+────────────────────────────────────────────────────────────────
+1. agent-browser（无头浏览器，Chromium 内核）
+   - 模拟移动端访问分享页，等待 SPA 渲染完成
+   - 通过 snapshot 获取页面 DOM 结构
+   - 通过 eval 执行 JS 提取视频元素 src
+
+2. CDP（Chrome DevTools Protocol）
+   - 通过 WebSocket 连接浏览器调试端口
+   - 使用 Network.enable 监听所有网络请求/响应
+   - 使用 Network.getResponseBody 获取 API 响应体
+   - 使用 Network.requestWillBeSent 捕获请求头和 POST body
+   - 使用 suppress_origin 绕过 WebSocket 403 限制
+
+3. JS 源码逆向分析
+   - 下载页面加载的全部 JS bundle（16 个文件，共约 1.5MB）
+   - 重点分析 42472.b1ed7bae.js（393KB，API 定义文件）
+   - 提取所有 API 端点定义、参数结构、调用方式
+
+4. VLM 视觉语言模型
+   - 使用 glm-4.6v 识别视频帧中的水印位置和内容
+   - 对比不同 API 返回的视频帧水印差异
+
+
+三、页面架构分析
+────────────────────────────────────────────────────────────────
+分享页为纯 SPA（单页应用），服务端返回的 HTML 仅包含骨架屏和 JS 引用，
+视频信息通过前端 JS 动态调用 API 获取。
+
+页面加载流程：
+  1. 加载 HTML 框架 → 2. 加载 JS bundle → 3. 调用 get_video_share_info API
+  → 4. 获取视频 URL → 5. 渲染 <video> 元素 → 6. 开始播放
+
+安全机制：
+  - msToken：动态生成的请求签名令牌
+  - ttwid：设备追踪 Cookie
+  - bdms.js / sdk-glue.js：请求签名 SDK
+  - webmssdk.es5.js：WebSocket 安全通信 SDK
+  - Agw-Js-Conv: str 请求头：API 网关约定头
+
+
+四、发现的 API 端点
+────────────────────────────────────────────────────────────────
+通过 JS 源码逆向，在 42472.b1ed7bae.js 中发现以下相关 API：
+
+  【核心视频 API】
+  1. POST /creativity/share/get_video_share_info
+     参数：{share_id, vid, download_params, creation_id}
+     用途：分享页视频信息（页面默认调用的 API）
+
+  2. POST /samantha/video/get_play_info
+     参数：{vid}
+     用途：内部播放信息（豆包 App 内部使用的播放接口）
+
+  3. POST /samantha/video/query_video_gen_info
+     参数：{vid, share_id}
+     用途：查询视频生成状态
+
+  4. POST /samantha/media/get_play_info
+     参数：{key, share_id, node_id}
+     用途：媒体播放信息（需要 node_id，无法外部调用）
+
+  【下载相关 API】
+  5. POST /alice/resource/watermark_download
+     参数：{uri, url, scene, sub_scene, content_type, file_type}
+     注意：参数作为 query params 传递，非 request body
+     用途：水印资源下载（返回 download_url 和 task_id）
+
+  6. GET /alice/resource/watermark_task
+     参数：{task_id}
+     用途：水印任务轮询
+
+  7. POST /samantha/aispace/get_download_info
+     参数：{requests: [{uri, content_type}]}
+     用途：AI 空间下载信息
+
+  8. POST /samantha/code/get_resource_download_url
+     参数：{resource_id, resource_type(int)}
+     用途：代码资源下载
+
+  9. POST /samantha/creation/artifact/get
+     参数：{id(int)}
+     用途：创作工件获取（需登录）
+
+  10. POST /alice/media/bigmusic/get_video
+      参数：{video_id, share_id, download_params, template_id, creation_id}
+      用途：大音乐视频信息
+
+  【其他相关 API】
+  11. POST /alice/resource/get_config — 资源配置
+  12. POST /alice/resource/register — 资源注册
+  13. POST /samantha/creation/artifact/get_meta_by_resource — 工件元信息
+  14. POST /alice/message/douyin_playback — 抖音回放
+
+
+五、API 调用结果
+────────────────────────────────────────────────────────────────
+
+  ┌─────────────────────────────────────────────────────────────┐
+  │ API #1: get_video_share_info（分享页默认 API）              │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 请求体（页面实际发送）：                                    │
+  │   {"share_id":"49141126666482178",                         │
+  │    "vid":"v0d69cg10004d946nuiljht2d4d2v44g",               │
+  │    "creation_id":""}                                       │
+  │                                                             │
+  │ 响应：                                                      │
+  │   code: 0                                                  │
+  │   play_info.main:                                          │
+  │     https://v9-videoweb.doubao.com/.../osaIBGkRg4b.../     │
+  │     (CDN: doubao.com, 编码: HEVC, 大小: 2.7MB)             │
+  │   play_info.backup: 同上，不同 CDN 节点                     │
+  │   水印: 有（"豆包AI生成"，右下角）                          │
+  └─────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────┐
+  │ API #2: get_play_info（内部播放 API）                       │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 请求体：{vid: "v0d69cg10004d946nuiljht2d4d2v44g"}          │
+  │                                                             │
+  │ 响应：                                                      │
+  │   code: 0                                                  │
+  │   view_count: 17                                           │
+  │   play_infos[0].main:                                      │
+  │     https://v26-show.douyinvod.com/.../o4IQDED9Ii.../      │
+  │     (CDN: douyinvod.com/抖音VOD, 编码: H264, 大小: 3.2MB)  │
+  │     URL 含 &download=true 参数                              │
+  │   水印: 有（"豆包AI生成"，左上角，位置与分享版不同）        │
+  │                                                             │
+  │ ★ 发现：此 API 返回了完全不同的视频内容 ID 和 CDN 源！      │
+  │   分享版内容 ID: osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD   │
+  │   播放版内容 ID: o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk   │
+  │   两者编码、码率、文件大小均不同，但都带水印                │
+  └─────────────────────────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────────────────────────┐
+  │ API #5: watermark_download（水印下载 API）                 │
+  ├─────────────────────────────────────────────────────────────┤
+  │ 成功的调用（scene="share", sub_scene="video_viewer"）：     │
+  │   请求：POST /alice/resource/watermark_download             │
+  │         ?...&uri=...&url=...&scene=share                    │
+  │         &sub_scene=video_viewer&content_type=video          │
+  │         &file_type=mp4                                     │
+  │   响应：                                                    │
+  │     {"code":0,"msg":"success",                             │
+  │      "data":{"status":"ready",                             │
+  │              "download_url":"<原样返回传入的 URL>",        │
+  │              "task_id":""}}                                │
+  │                                                             │
+  │ ★ 此 API 仅原样返回传入的 URL，task_id 始终为空，          │
+  │   未实际执行去水印操作。                                    │
+  └─────────────────────────────────────────────────────────────┘
+
+  其他 API 结果：
+  - query_video_gen_info → 返回生成状态（remain_count: 10），无 URL
+  - aispace/get_download_info → 返回 null
+  - creation/artifact/get → 需要数字 ID + 登录态
+  - media/get_play_info → 需要 node_id，参数校验失败
+  - code/get_resource_download_url → 参数无效
+  - resource/register → 参数错误
+
+
+六、CDN URL 参数测试
+────────────────────────────────────────────────────────────────
+对两个 CDN URL 进行了参数修改测试，通过下载前 100KB 并比较 MD5：
+
+  ┌──────────────────────────┬────────┬──────┬──────────┐
+  │ 参数修改                 │ HTTP   │ 大小 │ MD5      │
+  ├──────────────────────────┼────────┼──────┼──────────┤
+  │ 原始 lr=video_gen_watermark_dyn │ 200 │ 100KB │ 551381... │
+  │ lr=video_gen_unwatermark │ 200    │ 100KB│ 551381...│
+  │ lr=video_gen_origin      │ 200    │ 100KB│ 551381...│
+  │ lr=video_gen_no_watermark│ 200    │ 100KB│ 551381...│
+  │ lr=unwatermark           │ 200    │ 100KB│ 551381...│
+  │ lr=default               │ 200    │ 100KB│ 551381...│
+  │ 删除 lr 参数             │ 200    │ 100KB│ 551381...│
+  │ 添加 watermark=false     │ 200    │ 100KB│ 551381...│
+  │ 添加 no_watermark=true   │ 200    │ 100KB│ 551381...│
+  │ 删除 download=true       │ 200    │ 100KB│ 551381...│
+  │ download=false           │ 200    │ 100KB│ 551381...│
+  │ 删除所有 query 参数      │ 200    │ 100KB│ 551381...│
+  └──────────────────────────┴────────┴──────┴──────────┘
+
+  结论：lr、download、watermark 等 query 参数仅用于日志/统计，
+  不影响返回的视频内容。CDN 是内容寻址的，内容 ID 决定一切。
+
+
+七、GetPlayInfo 参数穷举测试
+────────────────────────────────────────────────────────────────
+  测试参数              返回内容 ID    是否相同
+  ─────────────────────────────────────────────
+  definition=origin     o4IQDED9...    相同
+  definition=source     o4IQDED9...    相同
+  definition=raw        o4IQDED9...    相同
+  definition=original   o4IQDED9...    相同
+  no_watermark=true     o4IQDED9...    相同
+  watermark=false       o4IQDED9...    相同
+  download=false        o4IQDED9...    相同
+  source_type=download  o4IQDED9...    相同
+  附加 share_id         o4IQDED9...    相同
+  附加 creation_id      o4IQDED9...    相同
+  全部参数组合          o4IQDED9...    相同
+
+  结论：无论传什么参数，get_play_info 始终返回同一个内容 ID。
+
+
+八、download_params 参数测试
+────────────────────────────────────────────────────────────────
+get_video_share_info API 支持 download_params 字段：
+
+  传入值               结果
+  ──────────────────────────────────────────
+  不传（undefined）     ✅ 成功，返回带水印 URL
+  {}（空对象）          ✅ 成功，返回带水印 URL
+  ""（空字符串）        ❌ system error
+  true                  ❌ system error
+  1                     ❌ system error
+  "no_watermark"        ❌ system error
+  {no_watermark: true}  ❌ system error
+  JSON.stringify(...)   ❌ system error
+
+  结论：download_params 必须是对象类型，传空对象可用，
+  但传任何实际内容都会导致参数校验失败。
+
+
+九、两个视频版本对比
+────────────────────────────────────────────────────────────────
+
+  ┌──────────────────┬────────────────────┬────────────────────┐
+  │ 属性             │ 分享版（share_info）│ 播放版（play_info）│
+  ├──────────────────┼────────────────────┼────────────────────┤
+  │ API 来源         │ get_video_share_info│ get_play_info      │
+  │ CDN 主机         │ v9-videoweb.doubao  │ v26-show.douyinvod │
+  │ CDN 类型         │ 阿里云 OSS          │ OpenResty CDN      │
+  │ 内容 ID          │ osaIBGkRg4bJ...    │ o4IQDED9Ii1IJ...   │
+  │ app ID (a=)      │ 497858（豆包）      │ 1938（抖音）       │
+  │ 视频编码         │ HEVC (H.265)       │ H.264 (AVC)        │
+  │ 码率              │ 2159 kbps          │ 2549 kbps          │
+  │ 文件大小         │ 2,786,669 bytes     │ 3,289,007 bytes     │
+  │                   │ (2.7 MB)           │ (3.2 MB)           │
+  │ 音频编码         │ AAC LC             │ AAC LC             │
+  │ 分辨率           │ 720×1280           │ 720×1280           │
+  │ 时长             │ 10.08s             │ 10.04s             │
+  │ 帧数             │ 241                │ 约 241             │
+  │ URL 含 download  │ 否                 │ 是（&download=true）│
+  │ 水印             │ 有                 │ 有                 │
+  │ 水印位置         │ 右下角             │ 左上角             │
+  └──────────────────┴────────────────────┴────────────────────┘
+
+  注意：两个版本水印位置不同，说明它们是不同的渲染输出，
+  但都包含"豆包AI生成"水印文字。
+
+
+十、结论
+────────────────────────────────────────────────────────────────
+
+  1. 水印性质："豆包AI生成"水印是在视频生成阶段烧录进像素的，
+     非播放器叠加层，非半透明 CSS 覆盖。
+
+  2. CDN 机制：ByteDance CDN（douyinvod.com）和阿里云 OSS
+     （doubao.com）均采用内容寻址，URL query 参数仅用于日志统计，
+     无法通过修改参数获取不同内容。
+
+  3. API 设计：豆包后端只对外暴露带水印的视频内容。所有公开 API
+     端点（共测试 14 个）均返回相同的带水印视频。
+
+  4. watermark_download API 虽然名字暗示去水印功能，但实际仅
+     返回传入的 URL 原文，task_id 为空，未执行任何去水印操作。
+     该 API 可能需要登录态 + 特定 scene 参数才能触发实际任务，
+     但未登录状态下无法验证。
+
+  5. 无水印版本推测：无水印视频可能仅存储在豆包内部创作管理
+     系统中，需要创作者登录账号后通过创作后台导出。对外分享的
+     视频始终是带水印版本。
+
+  最终判定：在未登录豆包账号的情况下，无法通过公开 API 或
+  URL 参数获取该视频的无水印版本。
+
+
+十一、获取到的有效视频直链（均带水印）
+────────────────────────────────────────────────────────────────
+
+  【分享版 - HEVC】
+  https://v9-videoweb.doubao.com/<hash>/<hash>/video/tos/cn/
+  tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/
+  ?a=497858&ch=0&cr=7&dr=3&lr=video_gen_watermark_dyn
+  &cd=0%7C0%7C0%7C1&cv=1&br=2159&bt=2159&cs=4&ds=3
+  &ft=vTVAHK~cBBkq8Zmo...&mime_type=video_mp4&qs=0
+  &rc=NGUzMzc6Nmho...&btag=c0000e00008000
+  &dy_q=1783182350&feature_id=069767e0b4f5...
+  &l=20260705002550000000000000894D1D4
+
+  【播放版 - H264】
+  https://v26-show.douyinvod.com/<hash>/<hash>/video/tos/cn/
+  tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/
+  ?a=1938&ch=0&cr=0&dr=0&er=0&lr=video_gen_watermark_dyn
+  &cd=0%7C0%7C0%7C0&cv=1&br=2549&bt=2549&cs=0&ds=3
+  &ft=9eUQ9bBOBBkq8Zmo...&mime_type=video_mp4&qs=0
+  &rc=Nzk8ZDplZDxn...&btag=c0000e00008000
+  &dy_q=1783182879&feature_id=e38567d78da7...
+  &l=202607050034395B8EB1F3A82F09DEF4E1&download=true
+
+  注意：以上链接包含签名和时间戳，有时效性（约 1 小时），
+  过期后需重新调用 API 获取新链接。
+
+
+十二、附件清单
+────────────────────────────────────────────────────────────────
+  - doubao_play_info.mp4  (3.2MB, H264, 播放版)
+  - doubao_video.mp4      (2.7MB, HEVC, 分享版)
+  - frame_hd.jpg          (高清帧截图，用于水印检测)
+  - 42472.b1ed7bae.js     (API 定义 JS bundle，393KB)
+  - video-sharing_page.a55c64df.js (分享页 JS，13KB)
+
+
+================================================================
+                        报告结束
+================================================================

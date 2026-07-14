@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "豆包去水印",
+  "version": "1.7.5",
+  "description": "豆包/即梦/Dreamina/通义千问视频图片去水印工具，一键提取无水印内容（v5引擎+CDN拦截）",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "downloads",
+    "contextMenus",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://www.doubao.com/*",
+    "https://qwen.cn/*",
+    "https://qwenhub.com/*",
+    "https://jimeng.jianying.com/*",
+    "https://dreamina.capcut.com/*",
+    "https://*.jianying.com/*",
+    "https://*.capcut.com/*",
+    "https://*.byteimg.com/*",
+    "https://*.vlabstatic.com/*",
+    "https://*.vlabvod.com/*",
+    "https://*.byted-static.net/*"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.doubao.com/video-sharing*",
+        "https://www.doubao.com/thread/*",
+        "https://www.doubao.com/chat/*",
+        "https://jimeng.jianying.com/*",
+        "https://dreamina.capcut.com/*"
+      ],
+      "js": ["content/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://www.doubao.com/video-sharing*",
+        "https://www.doubao.com/thread/*",
+        "https://www.doubao.com/chat/*",
+        "https://jimeng.jianying.com/*",
+        "https://dreamina.capcut.com/*"
+      ],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

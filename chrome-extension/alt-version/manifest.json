@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "豆包视频请求拦截器",
+  "version": "1.0",
+  "description": "拦截并分析豆包视频的所有网络请求",
+  "permissions": [
+    "webRequest",
+    "storage",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://www.doubao.com/*",
+    "https://*.doubao.com/*",
+    "https://*.douyinvod.com/*",
+    "https://*.byteimg.com/*",
+    "https://*.bytedance.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.doubao.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  }
+}

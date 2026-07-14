@@ -1,0 +1,1472 @@
+/* 整体容器 */
+.container {
+	background: #f8f8f8;
+}
+
+page {
+	background: #f8f8f8;
+}
+
+/* 顶部区域 */
+.notice-bar {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	padding: 20rpx 24rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0 0 16rpx 16rpx;
+	margin-bottom: 8rpx;
+	box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+.notice-icon {
+	font-size: 32rpx;
+	margin-right: 12rpx;
+	animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.1); }
+}
+
+.notice-text {
+	color: #fff;
+	font-size: 26rpx;
+	line-height: 40rpx;
+	text-align: center;
+}
+
+.banner {
+	width: 100%;
+	height: 300rpx !important;
+	background: #fff;
+}
+
+/* 主内容区域 */
+.main-content {
+	padding: 24rpx 24rpx 32rpx;
+	height: 100%;
+}
+
+/* 输入框区域 */
+.input-section {
+	background: #fff;
+	border-radius: 16rpx;
+	padding: 24rpx;
+	margin-bottom: 24rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+}
+
+.input-box {
+	display: flex;
+	align-items: center;
+	background: #f8f8f8;
+	border-radius: 12rpx;
+	padding: 4rpx;
+	border: 1rpx solid #eee;
+}
+
+.url-input {
+	flex: 1;
+	height: 76rpx;
+	padding: 0 24rpx;
+	font-size: 28rpx;
+	color: #333;
+}
+
+.submit-btn {
+	width: 140rpx !important;
+	height: 68rpx;
+	line-height: 68rpx;
+	background: #07c160;
+	color: #fff;
+	font-size: 28rpx;
+	border-radius: 8rpx;
+	margin-right: 4rpx !important;
+	transition: opacity 0.2s;
+}
+
+.submit-btn:active {
+	opacity: 0.9;
+}
+
+.tips-text {
+	font-size: 24rpx;
+	color: #999;
+	margin-top: 16rpx;
+	padding: 0 12rpx;
+}
+
+/* 快捷操作按钮 */
+.quick-actions {
+	display: flex;
+	gap: 20rpx;
+	margin-bottom: 24rpx;
+}
+
+.quick-btn {
+	flex: 1;
+	height: 84rpx;
+	background: #fff;
+	border-radius: 12rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 28rpx;
+	color: #333;
+	gap: 8rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+	transition: all 0.2s;
+}
+
+.quick-btn:active {
+	transform: scale(0.98);
+	opacity: 0.9;
+}
+
+/* 功能列表 */
+.feature-list {
+	background: #fff;
+	border-radius: 16rpx;
+	margin-bottom: 24rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+	overflow: hidden;
+}
+
+.feature-item {
+	display: flex;
+	align-items: center;
+	padding: 28rpx 24rpx;
+	border-bottom: 1rpx solid #f5f5f5;
+	transition: background-color 0.2s;
+}
+
+.feature-item:active {
+	background-color: #f8f8f8;
+}
+
+.feature-item:last-child {
+	border-bottom: none;
+}
+
+.feature-info {
+	flex: 1;
+	margin: 0 5rpx;
+}
+
+.feature-title {
+	font-size: 28rpx;
+	color: #333;
+	margin-right: 5px;
+	margin-bottom: 6rpx;
+}
+
+.feature-desc {
+	font-size: 24rpx;
+	color: #999;
+}
+
+/* 视频结果区域 - 重新设计 */
+.video-result {
+	width: 100%;
+	margin: 20rpx 0;
+	background: #fff;
+	border-radius: 16rpx;
+	overflow: hidden;
+	box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.06);
+	border: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+/* 视频标题样式 */
+.video-title {
+	padding: 20rpx;
+	font-size: 28rpx;
+	color: #333;
+	line-height: 1.4;
+	word-break: break-all;
+	text-align: justify;
+	background: #fff;
+	border-bottom: 1rpx solid #f5f5f5;
+}
+
+/* 视频封面容器样式 */
+.video-cover {
+	position: relative;
+	width: 100%;
+	height: 400rpx;
+	background: #000;
+	overflow: hidden;
+}
+
+/* 封面图片样式 */
+.cover-image {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+/* 播放按钮样式 */
+.play-button {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100rpx;
+	height: 100rpx;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+/* 播放图标样式 */
+.play-icon {
+	width: 60rpx;
+	height: 60rpx;
+}
+
+/* 视频播放器样式 */
+.video-player {
+	width: 100%;
+	min-height: 400rpx;
+	background: #f8f8f8;
+	border-radius: 12rpx;
+	overflow: hidden;
+}
+
+.video-player video {
+	width: 100%;
+	height: 400rpx;
+}
+
+/* 封面操作按钮特殊样式 */
+.cover-link-btn {
+	width: 80rpx !important;
+	height: 80rpx;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+	border: 2rpx solid #dee2e6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	transition: all 0.3s ease;
+	box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+	flex-shrink: 0;
+	margin-right: 16rpx;
+}
+
+.cover-link-btn:active {
+	transform: scale(0.95);
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+.cover-link-btn:hover {
+	background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+}
+
+/* 链接图标 */
+.link-icon {
+	width: 32rpx;
+	height: 32rpx;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.link-icon::before {
+	content: '';
+	position: absolute;
+	width: 20rpx;
+	height: 20rpx;
+	border: 3rpx solid #666;
+	border-radius: 6rpx;
+	top: 2rpx;
+	left: 8rpx;
+	transform: rotate(-45deg);
+}
+
+.link-icon::after {
+	content: '';
+	position: absolute;
+	width: 20rpx;
+	height: 20rpx;
+	border: 3rpx solid #666;
+	border-radius: 6rpx;
+	bottom: 2rpx;
+	right: 8rpx;
+	transform: rotate(-45deg);
+}
+
+/* 链接线条 */
+.link-icon {
+	background: linear-gradient(45deg, transparent 35%, #666 35%, #666 40%, transparent 40%, transparent 60%, #666 60%, #666 65%, transparent 65%);
+}
+
+/* 重新设计结果操作区域以适应新的封面按钮布局 */
+.result-actions {
+	display: flex;
+	align-items: center;
+	padding: 24rpx 20rpx 32rpx;
+	gap: 16rpx;
+	background: #fff;
+	border-radius: 0 0 16rpx 16rpx;
+}
+
+/* 封面区域的特殊布局 */
+.result-actions block {
+	display: flex;
+	align-items: center;
+	gap: 16rpx;
+	width: 100%;
+}
+
+/* 在操作栏中的全选按钮 */
+.result-actions .select-all-btn {
+	display: flex;
+	align-items: center;
+	gap: 8rpx;
+	width: 80px;
+	padding: 10px;
+	font-size: 26rpx;
+	color: #333;
+	border-radius: 50rpx;
+	transition: all 0.3s ease;
+	background-color: #f9f9f9;
+	flex-shrink: 0;
+}
+
+.result-actions .select-all-btn.selected {
+	background: #07c160;
+	color: #fff;
+	border-color: #07c160;
+}
+
+.result-actions .select-all-btn:active {
+	transform: scale(0.95);
+}
+
+/* 在操作栏中的复选框 */
+.result-actions .checkbox {
+	width: 20rpx;
+	height: 20rpx;
+	border: 2rpx solid #999;
+	border-radius: 4rpx;
+	transition: all 0.3s ease;
+	background: transparent;
+}
+
+.result-actions .checkbox.checked {
+	background: #fff;
+	border-color: #fff;
+	position: relative;
+}
+
+.result-actions .checkbox.checked::after {
+	content: '';
+	position: absolute;
+	top: 1rpx;
+	left: 5rpx;
+	width: 6rpx;
+	height: 10rpx;
+	border: 2rpx solid #07c160;
+	border-top: none;
+	border-left: none;
+	transform: rotate(45deg);
+}
+
+.result-btn {
+	flex: 1;
+	height: 88rpx;
+	line-height: 88rpx;
+	text-align: center;
+	border-radius: 44rpx;
+	font-size: 30rpx;
+	font-weight: 500;
+	border: none;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+	min-width: 200rpx;
+}
+
+.result-btn::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+	transition: left 0.5s ease;
+}
+
+.result-btn:active::before {
+	left: 100%;
+}
+
+.result-btn.primary {
+	background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+	color: #fff;
+	box-shadow: 0 6rpx 20rpx rgba(7, 193, 96, 0.3);
+}
+
+.result-btn.primary:active {
+	transform: translateY(2rpx);
+	box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.4);
+}
+
+.result-btn.secondary {
+	background: #f8f9fa;
+	color: #666;
+	border: 2rpx solid #e9ecef;
+}
+
+.result-btn.secondary:active {
+	transform: translateY(1rpx);
+	background: #e9ecef;
+}
+
+.backup-btn {
+	background: #1aad19 !important;
+}
+
+/* 分享卡片 */
+.share-card {
+	background: #fff;
+	border-radius: 16rpx;
+	padding: 24rpx;
+	display: flex;
+	align-items: center;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+}
+
+.share-info {
+	flex: 1;
+	margin: 0 6rpx;
+}
+
+.share-title {
+	font-size: 28rpx;
+	color: #333;
+	margin-right: 5px;
+	margin-bottom: 4rpx;
+}
+
+.share-desc {
+	font-size: 24rpx;
+	color: #999;
+}
+
+.share-btn {
+	width: 120rpx !important;
+	height: 60rpx;
+	line-height: 60rpx;
+	background: #07c160;
+	color: #fff;
+	font-size: 26rpx;
+	border-radius: 30rpx;
+	transition: opacity 0.2s;
+}
+
+.share-btn:active {
+	opacity: 0.9;
+}
+
+/* 底部区域 */
+.footer {
+	text-align: center;
+	padding: 32rpx 14rpx;
+	color: #999;
+	font-size: 24rpx;
+}
+
+/* 修复按钮默认样式 */
+button {
+	padding: 0;
+	margin: 0;
+	background: none;
+}
+
+button::after {
+	border: none;
+}
+
+/* 图标基础样式 */
+.icon-paste,
+.icon-clear,
+.icon-help,
+.icon-about,
+.icon-arrow,
+.icon-share {
+	display: inline-block;
+	position: relative;
+	width: 32rpx;
+	height: 32rpx;
+}
+
+/* 粘贴图标 */
+.icon-paste {
+	border: 2rpx solid #666;
+	border-radius: 4rpx;
+}
+
+.icon-paste::before {
+	content: '';
+	position: absolute;
+	top: -6rpx;
+	left: 4rpx;
+	width: 16rpx;
+	height: 2rpx;
+	background: #666;
+	box-shadow: 0 4rpx 0 #666;
+}
+
+/* 清空图标 */
+.icon-clear {
+	border: 2rpx solid #666;
+	border-radius: 50%;
+}
+
+.icon-clear::before,
+.icon-clear::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 18rpx;
+	height: 2rpx;
+	background: #666;
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.icon-clear::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* 帮助图标 */
+.icon-help {
+	border: 2rpx solid #666;
+	border-radius: 50%;
+}
+
+.icon-help::before {
+	content: '?';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 20rpx;
+	color: #666;
+}
+
+/* 关于图标 */
+.icon-about {
+	border: 2rpx solid #666;
+	border-radius: 50%;
+}
+
+.icon-about::before {
+	content: 'i';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 20rpx;
+	color: #666;
+}
+
+/* 箭头图标 */
+.icon-arrow {
+	width: 16rpx;
+	height: 16rpx;
+	border-top: 2rpx solid #999;
+	border-right: 2rpx solid #999;
+	transform: rotate(45deg);
+}
+
+/* 分享图标 */
+.icon-share {
+	position: relative;
+	width: 32rpx;
+	height: 32rpx;
+}
+
+.icon-share::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 24rpx;
+	height: 24rpx;
+	border: 2rpx solid #666;
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.icon-share::after {
+	content: '';
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	width: 2rpx;
+	height: 16rpx;
+	background: #666;
+	transform: translate(-50%, -50%);
+	box-shadow: -6rpx 6rpx 0 #666, 6rpx 6rpx 0 #666;
+}
+
+/* 修改按钮样式 */
+.quick-btn {
+	gap: 8rpx;
+}
+
+.feature-item {
+	padding: 24rpx 20rpx;
+}
+
+.feature-item .icon-help,
+.feature-item .icon-about {
+	margin-right: 12rpx;
+}
+
+.share-card .icon-share {
+	margin-right: 12rpx;
+}
+
+/* 图集结果区域 */
+.images-result {
+	background: #fff;
+	border-radius: 16rpx;
+	overflow: hidden;
+	margin-bottom: 24rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+}
+
+.images-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 20rpx;
+	padding: 20rpx;
+}
+
+.grid-image {
+	width: 100%;
+	height: 340rpx;
+	display: block;
+}
+
+.image-item {
+	position: relative;
+	width: 100%;
+	border-radius: 12rpx;
+	overflow: hidden;
+	background: #fff;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.image-actions {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10rpx;
+	display: flex;
+	justify-content: center;
+}
+
+.image-btn {
+	font-size: 24rpx;
+	padding: 6rpx 20rpx;
+	background: #07c160;
+	color: #fff;
+	border-radius: 30rpx;
+	border: none;
+	margin: 0;
+	line-height: 1.5;
+}
+
+.image-btn::after {
+	border: none;
+}
+
+/* 结果区域通用样式 */
+.result-actions {
+	display: flex;
+	padding: 20rpx;
+	gap: 16rpx;
+}
+
+.result-btn {
+	flex: 1;
+	height: 76rpx;
+	line-height: 76rpx;
+	text-align: center;
+	border-radius: 8rpx;
+	font-size: 28rpx;
+	transition: opacity 0.2s;
+}
+
+.result-btn:active {
+	opacity: 0.9;
+}
+
+.result-btn.primary {
+	background: #07c160;
+	color: #fff;
+}
+
+.result-btn.secondary {
+	background: #f5f5f5;
+	color: #333;
+}
+
+/* 图片网格样式 */
+.image-item {
+	position: relative;
+	width: 100%;
+	border-radius: 8rpx;
+	overflow: hidden;
+	aspect-ratio: 1;
+}
+
+.grid-image {
+	width: 100%;
+	height: 100%;
+	background: #f5f5f5;
+	display: block;
+}
+
+/* 图片操作按钮容器 */
+.image-actions {
+	position: absolute;
+	left: 50%;
+	bottom: 12rpx;
+	display: flex;
+	transform: translateX(-50%);
+	opacity: 1;
+	z-index: 99;
+}
+
+/* 图片操作按钮 */
+.image-btn {
+	width: 120rpx !important;
+	height: 44rpx;
+	line-height: 44rpx;
+	padding: 0 16rpx;
+	font-size: 22rpx;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.65);
+	border-radius: 22rpx;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 保存按钮图标 */
+.image-btn::before {
+	content: '';
+	display: inline-block;
+	width: 24rpx;
+	height: 24rpx;
+	margin-right: 4rpx;
+	background: url("data:image/svg+xml,%3Csvg t='1705150669548' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='4164'%3E%3Cpath d='M896 672c-17.066667 0-32 14.933333-32 32v128c0 6.4-4.266667 10.666667-10.666667 10.666667H170.666667c-6.4 0-10.666667-4.266667-10.666667-10.666667v-128c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v128c0 40.533333 34.133333 74.666667 74.666667 74.666667h682.666666c40.533333 0 74.666667-34.133333 74.666667-74.666667v-128c0-17.066667-14.933333-32-32-32z' fill='%23ffffff' p-id='4165'%3E%3C/path%3E%3Cpath d='M488.533333 727.466667c6.4 6.4 14.933333 8.533333 23.466667 8.533333s17.066667-2.133333 23.466667-8.533333l213.333333-213.333334c12.8-12.8 12.8-32 0-44.8-12.8-12.8-32-12.8-44.8 0l-157.866667 157.866667V170.666667c0-17.066667-14.933333-32-32-32s-34.133333 14.933333-34.133333 32v456.533333L322.133333 469.333333c-12.8-12.8-32-12.8-44.8 0-12.8 12.8-12.8 32 0 44.8l211.2 213.333334z' fill='%23ffffff' p-id='4166'%3E%3C/path%3E%3C/svg%3E") no-repeat center/contain;
+}
+
+.image-btn:active {
+	transform: scale(0.95);
+	opacity: 0.9;
+}
+
+/* 图片遮罩 */
+.image-item::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 60rpx;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+	opacity: 1;
+}
+
+/* 修复按钮默认样式 */
+.image-btn::after {
+	display: none;
+}
+
+/* 域名管理提示卡片 */
+.domain-tip-card {
+	margin: 0 0 24rpx 0;
+	padding: 20rpx 24rpx;
+	background-color: #fff;
+	border-radius: 12rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.domain-tip-icon {
+	width: 48rpx;
+	height: 48rpx;
+	margin-right: 16rpx;
+	background-color: #f2f7ff;
+	border-radius: 50%;
+	flex-shrink: 0;
+	position: relative;
+}
+
+.domain-tip-icon::before {
+	content: '';
+	position: absolute;
+	width: 28rpx;
+	height: 28rpx;
+	top: 10rpx;
+	left: 10rpx;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230066ff'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.domain-tip-content {
+	flex: 1;
+}
+
+.domain-tip-title {
+	font-size: 28rpx;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 6rpx;
+}
+
+.domain-tip-desc {
+	font-size: 24rpx;
+	color: #999;
+}
+
+.domain-tip-arrow {
+	width: 32rpx;
+	height: 32rpx;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'%3E%3Cpath d='M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+/* 底部导航中的域名图标 */
+.domain-icon {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333333'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E");
+}
+
+/* 下载进度弹窗样式 */
+.download-progress-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.progress-container {
+	width: 80%;
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.progress-title {
+	font-size: 16px;
+	text-align: center;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+.progress-bar-container {
+	width: 100%;
+	height: 10px;
+	background-color: #f0f0f0;
+	border-radius: 5px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.progress-bar {
+	height: 100%;
+	background-color: #3de066;
+	border-radius: 5px;
+	transition: width 0.3s;
+}
+
+.progress-text {
+	text-align: center;
+	font-size: 14px;
+	color: #666;
+	margin-bottom: 15px;
+}
+
+.cancel-btn {
+	width: 80%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: #f5f5f5;
+	color: #333;
+	border-radius: 20px;
+	font-size: 14px;
+	margin: 0 auto;
+}
+
+/* 备用下载按钮样式 */
+.backup-btn {
+	background-color: #ff9500;
+}
+
+/* 确保原有按钮样式不丢失 */
+.result-btn {
+	width: 45%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border-radius: 20px;
+	font-size: 14px;
+	margin: 10px 0;
+}
+
+.primary {
+	background-color: #d4237a;
+	color: white;
+}
+
+.secondary {
+	background-color: #f5f5f5;
+	color: #333;
+}
+
+.result-actions {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+
+/* 选项卡样式 - 重新设计 */
+.tabs {
+	display: flex;
+	justify-content: space-around;
+	padding: 20rpx 0;
+	background: #fff;
+	border-bottom: 1rpx solid #f0f0f0;
+	position: relative;
+}
+
+.tab-item {
+	font-size: 30rpx;
+	color: #999;
+	padding: 16rpx 24rpx;
+	position: relative;
+	transition: all 0.3s ease;
+	font-weight: 400;
+}
+
+.tab-item.active {
+	color: #07c160;
+	font-weight: 600;
+	transform: scale(1.05);
+}
+
+.tab-item.active::after {
+	content: '';
+	position: absolute;
+	bottom: -20rpx;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 48rpx;
+	height: 6rpx;
+	background: linear-gradient(135deg, #07c160 0%, #00a86b 100%);
+	border-radius: 3rpx;
+	box-shadow: 0 2rpx 8rpx rgba(7, 193, 96, 0.3);
+}
+
+/* 调整选项卡内容区域样式 */
+.tab-content {
+	padding: 0;
+	min-height: 400rpx;
+	background: transparent;
+}
+
+.tab-pane {
+	padding: 20rpx;
+	background: #fff;
+	border-radius: 0 0 16rpx 16rpx;
+}
+
+/* 调整视频播放器样式 */
+.video-player {
+	width: 100%;
+	height: 400rpx;
+	background: #f8f8f8;
+	border-radius: 12rpx;
+	overflow: hidden;
+}
+
+.video-player video {
+	width: 100%;
+	height: 400rpx;
+}
+
+.cover-container {
+	text-align: center;
+	padding: 40rpx 20rpx;
+	background: #fff;
+	border-radius: 16rpx;
+	margin: 20rpx 0;
+	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.cover-container image {
+	width: 100%;
+	max-height: 400rpx;
+	border-radius: 12rpx;
+	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.desc-container {
+	padding: 40rpx 20rpx;
+	background: #fff;
+	border-radius: 16rpx;
+	margin: 20rpx 0;
+	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.desc-text {
+	font-size: 28rpx;
+	color: #333;
+	line-height: 1.8;
+	text-align: justify;
+	word-break: break-all;
+}
+
+.placeholder {
+	text-align: center;
+	color: #999;
+	font-size: 28rpx;
+	padding: 40rpx 0;
+}
+
+.save-btn,
+.copy-btn {
+	margin-top: 30rpx;
+	width: 80%;
+	background: #07c160;
+	color: #fff;
+	border-radius: 40rpx;
+	font-size: 28rpx;
+}
+
+.save-btn:active,
+.copy-btn:active {
+	opacity: 0.8;
+}
+
+/* 图集标题/文案样式 */
+.images-title {
+	padding: 20rpx;
+	font-size: 28rpx;
+	color: #333;
+	line-height: 1.5;
+	word-break: break-all;
+	text-align: justify;
+	background: #fff;
+	border-bottom: 1rpx solid #f5f5f5;
+	max-height: 200rpx;
+	overflow-y: auto;
+}
+
+.live-analysis-section {
+	width: 100%;
+	padding: 20rpx;
+	box-sizing: border-box;
+}
+
+
+.quick-livebtn {
+	height: 84rpx;
+	width: 100% !important;
+	background: #fff;
+	border-radius: 12rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 28rpx;
+	color: #333;
+	gap: 8rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+	transition: all 0.2s;
+}
+
+.quick-livebtn:active {
+	transform: scale(0.98);
+	opacity: 0.9;
+}
+
+/* 自动功能设置样式 */
+.auto-settings {
+	background: #fff;
+	border-radius: 16rpx;
+	padding: 24rpx;
+	margin-bottom: 24rpx;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.02);
+}
+
+.settings-row {
+	display: flex;
+	gap: 20rpx;
+	align-items: center;
+}
+
+.setting-item-inline {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	gap: 12rpx;
+	padding: 16rpx;
+	border-radius: 12rpx;
+	background: #f8f9fa;
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+
+.setting-item-inline:active {
+	background: #e9ecef;
+	transform: scale(0.98);
+}
+
+.checkbox-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.settings-row .checkbox {
+	width: 24rpx;
+	height: 24rpx;
+	border: 3rpx solid #ddd;
+	border-radius: 6rpx;
+	transition: all 0.3s ease;
+	background: #fff;
+	position: relative;
+}
+
+.settings-row .checkbox.checked {
+	background: #07c160;
+	border-color: #07c160;
+}
+
+.settings-row .checkbox.checked::after {
+	content: '';
+	position: absolute;
+	top: 2rpx;
+	left: 7rpx;
+	width: 6rpx;
+	height: 12rpx;
+	border: 3rpx solid #fff;
+	border-top: none;
+	border-left: none;
+	transform: rotate(45deg);
+}
+
+.settings-row .setting-label {
+	font-size: 26rpx;
+	color: #333;
+	font-weight: 500;
+	flex: 1;
+}
+
+/* 多选功能样式 - 重新设计 */
+.images-container {
+	background: #fff;
+	border-radius: 16rpx;
+	overflow: hidden;
+	margin-top: 20rpx;
+	box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.images-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20rpx 24rpx;
+	border-bottom: 1rpx solid #f5f5f5;
+}
+
+.images-count {
+	font-size: 28rpx;
+	color: #333;
+	font-weight: 600;
+}
+
+.images-tip {
+	font-size: 22rpx;
+	color: #999;
+}
+
+/* 重新设计图片网格布局 */
+.images-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16rpx;
+	padding: 20rpx;
+	background: #fff;
+}
+
+.image-item {
+	position: relative;
+	border-radius: 12rpx;
+	overflow: hidden;
+	background: #fff;
+	box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+	aspect-ratio: 1;
+	border: 4rpx solid transparent;
+}
+
+.image-item.image-selected {
+	border-color: #07c160;
+	box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.3);
+}
+
+.image-item:hover {
+	transform: translateY(-2rpx);
+	box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.12);
+}
+
+.image-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-radius: 12rpx;
+	overflow: hidden;
+}
+
+.image-index {
+	position: absolute;
+	top: 8rpx;
+	left: 8rpx;
+	min-width: 36rpx;
+	height: 36rpx;
+	line-height: 36rpx;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.55);
+	color: #fff;
+	font-size: 20rpx;
+	font-weight: 600;
+	border-radius: 18rpx;
+	padding: 0 10rpx;
+	z-index: 10;
+	backdrop-filter: blur(4rpx);
+}
+
+.grid-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+}
+
+.image-wrapper.selected .grid-image {
+	transform: scale(0.97);
+}
+
+/* 选择框重新设计 */
+.image-select {
+	position: absolute;
+	top: 8rpx;
+	right: 8rpx;
+	width: 44rpx;
+	height: 44rpx;
+	z-index: 10;
+	transition: all 0.3s ease;
+}
+
+.select-checkbox {
+	width: 44rpx;
+	height: 44rpx;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24rpx;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.45);
+	border: 3rpx solid rgba(255, 255, 255, 0.6);
+	transition: all 0.25s ease;
+	box-sizing: border-box;
+}
+
+.select-checkbox.checked {
+	background: #07c160;
+	border-color: #07c160;
+	transform: scale(1.05);
+	box-shadow: 0 2rpx 8rpx rgba(7, 193, 96, 0.4);
+}
+
+.image-select:active {
+	transform: scale(0.9);
+}
+
+.checkbox.checked {
+	background: #07c160;
+	border-color: #07c160;
+	position: relative;
+	transform: scale(1.1);
+}
+
+.checkbox.checked::after {
+	content: '';
+	position: absolute;
+	top: 3rpx;
+	left: 8rpx;
+	width: 6rpx;
+	height: 12rpx;
+	border: 3rpx solid #fff;
+	border-top: none;
+	border-left: none;
+	transform: rotate(45deg);
+}
+
+/* 选中图片的遮罩效果 */
+.image-wrapper::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(135deg, rgba(7, 193, 96, 0.12) 0%, rgba(7, 193, 96, 0.2) 100%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 5;
+	border-radius: 12rpx;
+}
+
+.image-item.image-selected .image-wrapper::after {
+	opacity: 1;
+}
+
+/* 图片操作按钮重新设计 */
+.image-actions {
+	position: absolute;
+	left: 50%;
+	bottom: 8rpx;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 8rpx;
+	opacity: 0.9;
+	z-index: 15;
+}
+
+.image-btn {
+	width: 72rpx !important;
+	height: 32rpx;
+	line-height: 32rpx;
+	padding: 0;
+	font-size: 18rpx;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.7);
+	border-radius: 16rpx;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+	transition: all 0.2s ease;
+	backdrop-filter: blur(10rpx);
+}
+
+.image-btn.save-btn {
+	background: rgba(7, 193, 96, 0.8);
+}
+
+.image-btn.copy-btn {
+	background: rgba(64, 158, 255, 0.8);
+}
+
+.image-btn:active {
+	transform: scale(0.95);
+	opacity: 0.8;
+}
+
+.image-btn::before {
+	display: none;
+}
+
+/* 优化动画效果 */
+@keyframes checkmark {
+	0% {
+		transform: scale(0) rotate(45deg);
+		opacity: 0;
+	}
+
+	50% {
+		transform: scale(1.2) rotate(45deg);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(1) rotate(45deg);
+		opacity: 1;
+	}
+}
+
+.checkbox.checked::after {
+	animation: checkmark 0.3s ease-in-out;
+}
+
+@keyframes selectGlow {
+	0% {
+		box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+	}
+
+	50% {
+		box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.3);
+	}
+
+	100% {
+		box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+	}
+}
+
+.image-item:active {
+	animation: selectGlow 0.3s ease-in-out;
+}
+
+/* 响应式优化 */
+@media (max-width: 375px) {
+	.select-all-btn {
+		padding: 10rpx 16rpx;
+		font-size: 26rpx;
+	}
+
+	.select-info {
+		font-size: 24rpx;
+	}
+
+	.images-grid {
+		gap: 12rpx;
+		padding: 16rpx;
+	}
+}
