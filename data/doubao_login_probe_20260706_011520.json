@@ -1,0 +1,591 @@
+[
+  {
+    "endpoint": "samantha_media_get_play_info",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"media_type\":\"video\",\"media_info\":[{\"meta\":{\"height\":\"1280\",\"width\":\"720\",\"format\":\"mp4\",\"duration\":10.08,\"codec_type\":\"h264\",\"definition\":\"720p\"},\"main_url\":\"https://v9-videoweb.doubao.com/00bee9853ea1eb8fd7825041745e0e55/6a4be2a0/video/tos/cn/tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/?a=497858\\u0026ch=0\\u0026cr=0\\u0026dr=0\\u0026er=0\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C0\\u0026cv=1\\u0026br=2549\\u0026bt=2549\\u0026cs=0\\u0026ds=3\\u0026ft=vTVAH",
+    "video_urls": [
+      "https://p3-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?dy_q=1783271702",
+      "https://v9-videoweb.doubao.com/00bee9853ea1eb8fd7825041745e0e55/6a4be2a0/video/tos/cn/tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/?a=497858"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"media_type\":\"video\",\"media_info\":[{\"meta\":{\"height\":\"1280\",\"width\":\"720\",\"format\":\"mp4\",\"duration\":10.08,\"codec_type\":\"h264\",\"definition\":\"720p\"},\"main_url\":\"https://v26-videoweb.doubao.com/763226ad52b2ed10ee4753244efe7a47/6a4be2a0/video/tos/cn/tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/?a=497858\\u0026ch=0\\u0026cr=0\\u0026dr=0\\u0026er=0\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C0\\u0026cv=1\\u0026br=2549\\u0026bt=2549\\u0026cs=0\\u0026ds=3\\u0026ft=vTVA",
+    "video_urls": [
+      "https://p11-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?dy_q=1783271702",
+      "https://v26-videoweb.doubao.com/763226ad52b2ed10ee4753244efe7a47/6a4be2a0/video/tos/cn/tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/?a=497858"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"media_type\":\"video\",\"media_info\":[{\"meta\":{\"height\":\"1280\",\"width\":\"720\",\"format\":\"mp4\",\"duration\":10.08,\"codec_type\":\"h264\",\"definition\":\"720p\"},\"main_url\":\"https://v9-videoweb.doubao.com/363d4254c43e574700c47ead4c77c9f9/6a4be2a1/video/tos/cn/tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/?a=497858\\u0026ch=0\\u0026cr=0\\u0026dr=0\\u0026er=0\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C0\\u0026cv=1\\u0026br=2549\\u0026bt=2549\\u0026cs=0\\u0026ds=3\\u0026ft=vTVAH",
+    "video_urls": [
+      "https://p3-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?dy_q=1783271703",
+      "https://v9-videoweb.doubao.com/363d4254c43e574700c47ead4c77c9f9/6a4be2a1/video/tos/cn/tos-cn-v-9ecd54/o4IQDED9Ii1IJRubRUs6AeJ04gA4aQXmoIKtvk/?a=497858"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info_minimal",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710010202,\"msg\":\"系统错误\",\"message\":\"param invalid\",\"error\":{\"code\":710010202,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info_minimal",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710010202,\"msg\":\"系统错误\",\"message\":\"param invalid\",\"error\":{\"code\":710010202,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info_minimal",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info_minimal",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710010202,\"msg\":\"系统错误\",\"message\":\"param invalid\",\"error\":{\"code\":710010202,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_media_get_play_info_minimal",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info_key",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info_key",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info_key",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info_key",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_get_play_info_key",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info_min",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info_min",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info_min",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info_min",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "samantha_video_query_video_gen_info_min",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "creativity_share_get_video_share_info",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"play_info\":{\"main\":\"https://v26-videoweb.doubao.com/8da08044de3faef8a75475e7cbb33be0/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858\\u0026ch=0\\u0026cr=7\\u0026dr=3\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C1\\u0026cv=1\\u0026br=2159\\u0026bt=2159\\u0026cs=4\\u0026ds=3\\u0026ft=vTVAHK~cBBkq8Zmo..9vk_vjVQWw\\u0026mime_type=video_mp4\\u0026qs=0\\u0026rc=NGUzMzc6NmhoODo1MzpkNEBpajc1NzVrb3g5PDczNGY5M0AzLS8xMC4yXmExMmAwNS8zYSMxc2FhcWdm",
+    "video_urls": [
+      "https://p5-ex-gddgtc-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?dy_q=1783271710",
+      "https://v26-videoweb.doubao.com/8da08044de3faef8a75475e7cbb33be0/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858",
+      "https://v9-videoweb.doubao.com/9d743e65e1ace73ec85b7cf426340cad/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "creativity_share_get_video_share_info",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"play_info\":{\"main\":\"https://v26-videoweb.doubao.com/8da08044de3faef8a75475e7cbb33be0/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858\\u0026ch=0\\u0026cr=7\\u0026dr=3\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C1\\u0026cv=1\\u0026br=2159\\u0026bt=2159\\u0026cs=4\\u0026ds=3\\u0026ft=vTVAHK~cBBkq8Zmo..9vk_vjVQWw\\u0026mime_type=video_mp4\\u0026qs=0\\u0026rc=NGUzMzc6NmhoODo1MzpkNEBpajc1NzVrb3g5PDczNGY5M0AzLS8xMC4yXmExMmAwNS8zYSMxc2FhcWdm",
+    "video_urls": [
+      "https://p3-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?dy_q=1783271710",
+      "https://v26-videoweb.doubao.com/8da08044de3faef8a75475e7cbb33be0/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858",
+      "https://v9-videoweb.doubao.com/9d743e65e1ace73ec85b7cf426340cad/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "creativity_share_get_video_share_info",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"play_info\":{\"main\":\"https://v11-cold.douyinvod.com/198f572960c1983f96ea4d4a9cedcdd1/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=1128\\u0026ch=0\\u0026cr=7\\u0026dr=3\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C1\\u0026cv=1\\u0026br=2159\\u0026bt=2159\\u0026cs=4\\u0026ds=3\\u0026ft=r5QvG77JWH6BMxx20Jr0PD1IN\\u0026mime_type=video_mp4\\u0026qs=0\\u0026rc=NGUzMzc6NmhoODo1MzpkNEBpajc1NzVrb3g5PDczNGY5M0AzLS8xMC4yXmExMmAwNS8zYSMxc2FhcWdmazFhLS",
+    "video_urls": [
+      "https://p3-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?cquery=10rO",
+      "https://v11-cold.douyinvod.com/198f572960c1983f96ea4d4a9cedcdd1/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=1128",
+      "https://v26-cold.douyinvod.com/8da08044de3faef8a75475e7cbb33be0/6a4a9f38/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=1128"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "creativity_share_get_video_share_info",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"play_info\":{\"main\":\"https://v9-videoweb.doubao.com/5d2dfdfb15d9925503c3a331880fd90f/6a4a9f39/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858\\u0026ch=0\\u0026cr=7\\u0026dr=3\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C1\\u0026cv=1\\u0026br=2159\\u0026bt=2159\\u0026cs=4\\u0026ds=3\\u0026ft=vTVAHK~cBBkq8Zmoy.9vk_vjVQWw\\u0026mime_type=video_mp4\\u0026qs=0\\u0026rc=NGUzMzc6NmhoODo1MzpkNEBpajc1NzVrb3g5PDczNGY5M0AzLS8xMC4yXmExMmAwNS8zYSMxc2FhcWdma",
+    "video_urls": [
+      "https://p26-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?dy_q=1783271711",
+      "https://v3-videoweb.doubao.com/bafcebb45e99939cabfae212c6835f8e/6a4a9f39/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858",
+      "https://v9-videoweb.doubao.com/5d2dfdfb15d9925503c3a331880fd90f/6a4a9f39/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=497858"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "creativity_share_get_video_share_info",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":0,\"msg\":\"\",\"data\":{\"play_info\":{\"main\":\"https://v5-se-gddgtc-default.365yg.com/7cbb9d6ea3ba933e6f4ad34f2f2b0f0c/6a4a9f39/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=0\\u0026ch=0\\u0026cr=7\\u0026dr=3\\u0026lr=video_gen_watermark_dyn\\u0026cd=0%7C0%7C0%7C1\\u0026cv=1\\u0026br=2159\\u0026bt=2159\\u0026cs=4\\u0026ds=3\\u0026ft=Oi.pi77JWH6BMhx20Jr0PD1IN\\u0026mime_type=video_mp4\\u0026qs=0\\u0026rc=NGUzMzc6NmhoODo1MzpkNEBpajc1NzVrb3g5PDczNGY5M0AzLS8xMC4yXmExMmAwNS8zYSMxc2FhcWdma",
+    "video_urls": [
+      "https://p26-sign.douyinpic.com/tos-cn-p-9ecd54/oApi16IgNFR6SZG1yzxIJSVGRvxWABwQfBfqpQ~tplv-noop.image?cquery=10iH",
+      "https://v26-default.365yg.com/03d25cfa891d9df3ba729500b3def2fa/6a4a9f39/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=0",
+      "https://v5-se-gddgtc-default.365yg.com/7cbb9d6ea3ba933e6f4ad34f2f2b0f0c/6a4a9f39/video/tos/cn/tos-cn-v-9ecd54/osaIBGkRg4bJomvI3JeFQXEs4IiMQG9K0CA1qD/?a=0"
+    ],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_get",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_get",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_get",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012020,\"msg\":\"系统错误\",\"message\":\"open auth invalid\",\"error\":{\"code\":710012020,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_get",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_get",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_post",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_post",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_post",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012020,\"msg\":\"系统错误\",\"message\":\"open auth invalid\",\"error\":{\"code\":710012020,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_post",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_post",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_get",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_get",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_get",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012020,\"msg\":\"系统错误\",\"message\":\"open auth invalid\",\"error\":{\"code\":710012020,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_get",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_download_get",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_post",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_post",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_post",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012020,\"msg\":\"系统错误\",\"message\":\"open auth invalid\",\"error\":{\"code\":710012020,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_post",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "watermark_task_post",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_register",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012000,\"msg\":\"用户不合法\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_register",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012000,\"msg\":\"用户不合法\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_register",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012000,\"msg\":\"用户不合法\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_register",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012000,\"msg\":\"用户不合法\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_register",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012000,\"msg\":\"用户不合法\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_prepare_upload",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_prepare_upload",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_prepare_upload",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"code\":710012020,\"msg\":\"系统错误\",\"message\":\"open auth invalid\",\"error\":{\"code\":710012020,\"message\":\"系统错误\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_prepare_upload",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "alice_resource_prepare_upload",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"code\":710012001,\"msg\":\"登录已过期，请重新登录\",\"message\":\"login invalid\",\"error\":{\"code\":710012001,\"message\":\"登录已过期，请重新登录\",\"locale\":\"zh\"}}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "douyin_creator_video_list",
+    "variant": "default_v20800",
+    "status": 200,
+    "body_preview": "{\"status_code\":0,\"status_msg\":\"url doesn't match\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "douyin_creator_video_list",
+    "variant": "minimal",
+    "status": 200,
+    "body_preview": "{\"status_code\":0,\"status_msg\":\"url doesn't match\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "douyin_creator_video_list",
+    "variant": "old_vc_8000",
+    "status": 200,
+    "body_preview": "{\"status_code\":0,\"status_msg\":\"url doesn't match\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "douyin_creator_video_list",
+    "variant": "old_vc_12000",
+    "status": 200,
+    "body_preview": "{\"status_code\":0,\"status_msg\":\"url doesn't match\"}",
+    "video_urls": [],
+    "lr_values": []
+  },
+  {
+    "endpoint": "douyin_creator_video_list",
+    "variant": "no_params",
+    "status": 200,
+    "body_preview": "{\"status_code\":0,\"status_msg\":\"url doesn't match\"}",
+    "video_urls": [],
+    "lr_values": []
+  }
+]
